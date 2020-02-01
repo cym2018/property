@@ -1,1 +1,1 @@
-*.js linguist-vendored=false
+src/main/resources/static/js/axios.js -linguist-detectable
