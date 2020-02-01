@@ -1,2 +1,3 @@
+*.js linguist-language=Java
 /src/main/resources/static/js/axios.js linguist-vendored=false
 vue.js linguist-vendored=false
