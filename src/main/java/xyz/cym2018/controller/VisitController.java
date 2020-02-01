@@ -41,10 +41,8 @@ public class VisitController {
 
     @RequestMapping("/table1/query")
     public String Query(Owner owner, Integer pageSize, Integer pageNumber) {
-
         try {
             if (pageNumber != null) {
-                pageNumber++;
                 Page<Owner> page = ownerRepository.findAll(Example.of(owner), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
                 return objectMapper.writeValueAsString(page);
             } else {
