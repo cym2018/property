@@ -7,7 +7,7 @@
   <script src="../js/vue.js"></script>
   <script src="../js/axios.js"></script>
   <script src="../js/my.js"></script>
-  <script src="./edit.js"></script>
+  <script src="../js/connect.js"></script>
 </head>
 <body>
 <div id="app">
@@ -18,50 +18,21 @@
   <br>
   密码:<input v-model="info.password">
   <br>
-  <button @click="submit">提交</button>
+  <button @click="adminSubmit">提交</button>
 </div>
 <script>
   let app = new Vue({
     el: '#app',
-    data: {
-      title,
-      info,
-    },
-    methods: {
-      getVariable,
-      getLogin: function (url, params, ret) {
-        axios.get(url, {params: params}).then(res => {
-          console.log(res);
-          ret.id = res.data.id;
-          ret.username = res.data.username;
-          ret.password = res.data.password;
-        });
-      },
-      submit: function () {
-        axios.get('./save', {
-          params: {
-            id: this.info.id,
-            username: this.info.username,
-            password: this.info.password
-          }
-        }).then(res => {
-          console.log((typeof res.data));
-          if (res.data === true) {
-            alert('修改成功');
-          }else {
-            alert('修改失败');
-          }
-        });
-      }
-    },
+    data: {title, info,},
+    methods: {getVariable, getAdminData, adminSubmit,},
     created() {
-      this.info.id = getVariable(window.location.search.substring(1).split(sp),'id','&');
+      this.info.id = getUrl('id');
       if (this.info.id === false) {
         this.title = '添加用户';
         this.info.id = '';
       } else {
         this.title = '修改';
-        this.getLogin('./queryById', {id: this.info.id}, this.info);
+        getAdminData(info);
       }
     }
 

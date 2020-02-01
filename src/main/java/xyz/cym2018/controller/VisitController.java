@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.cym2018.DAO.Login;
-import xyz.cym2018.DAO.LoginService;
 import xyz.cym2018.DAO.Owner;
 import xyz.cym2018.DAO.OwnerRepository;
 
@@ -25,8 +24,6 @@ public class VisitController {
         /visit/table1/save
         /visit/info
      */
-    @Autowired
-    LoginService loginService;
     @Autowired
     OwnerRepository ownerRepository;
     @Autowired
@@ -53,6 +50,7 @@ public class VisitController {
                 if (!ret.isPresent()) {
                     throw new Exception("无符合条件的记录");
                 }
+                owner = ret.get();
                 return objectMapper.writeValueAsString(owner);
             }
         } catch (Exception e) {
@@ -61,13 +59,5 @@ public class VisitController {
         }
     }
 
-    @RequestMapping("/table/save")
-    public String Save(Owner owner) {
-        try {
-            ownerRepository.save(owner);
-            return "操作成功!";
-        } catch (Exception e) {
-            return "操作失败!\n" + e.toString();
-        }
-    }
+
 }

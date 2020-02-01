@@ -1,4 +1,55 @@
 'use strict';
+// login
+let password = '', username = '', usernameValidation, passwordValidation, message = '';
+
+function usernameVF(newVal) {
+  this.usernameValidation = StringTest(newVal);
+}
+
+function passwordVF(newVal) {
+  this.passwordValidation = StringTest(newVal);
+}
+
+function StringTest(input) {
+  // noinspection JSConstructorReturnsPrimitive
+  return (/^[A-Za-z0-9]{1,15}$/.test(input)) ? "√" : "×请输入1-15位数字或字母";
+}
+
+//table1
+const selectForm = {
+  "name": "",
+  "buildingNumber": "",
+  "unitNumber": "",
+  "roomNumber": "",
+  "area": "",
+  "depositToCost": "",
+  "paidForTime": "",
+  "wechatPay": "",
+  "moneyPay": "",
+  "unionPay": "",
+  "refundName": "",
+  "refundAccount": "",
+  "refundNumber": "",
+  "breaks": "",
+  "paidAt51": "",
+  "depsit": "",
+  "garbageRate": "",
+  "waterRate": "",
+  "col": "",
+  "note": "",
+};
+
+
+// admin
+let title = '', info = {
+  id: '',
+  username: '',
+  password: '',
+};
+
+
+// 通用
+let id;
 // 实体对象
 const userInfo = {
   "id": '',
@@ -38,12 +89,22 @@ const list = {"data": []};
 // 分页
 const page = {
   "_currPage": 0,
+  "_showPage": 1,
   "totalPage": 0,
   "totalRow": 0,
   "pageSize": 30,
   set currPage(val) {
-    if (val >= 0 && val < this.totalPage)
+    if (val >= 0 && val < this.totalPage) {
       this._currPage = val;
+      this._showPage = val + 1;
+    }
+  },
+  set showPage(val) {
+    this._showPage = val;
+    this._currPage = val - 1;
+  },
+  get showPage() {
+    return this._showPage;
   },
   get currPage() {
     return this._currPage;
@@ -58,6 +119,13 @@ const page = {
   },
 };
 
+// 获取url中的值
+function getUrl(key) {
+  let vars = window.location.search.substring(1).split('&');
+  return getVariable(vars, key);
+}
+
+// 获取cookie中的值
 function getCookie(key) {
   let vars = document.cookie.split('; ');
   return getVariable(vars, key);
@@ -74,27 +142,11 @@ function getVariable(vars, key) {
   return false;
 }
 
-function getPage(url, params, ret) {
-  axios.get(url, {params: params,}).then(res => {
-    ret.list.data = res.data.content;
-    ret.page.totalPage = res.data.totalPages;
-    ret.page.totalRow = res.data.totalElements;
-  });
-}
-
-function getList(url, params, ret) {
-  axios.get(url, {params: params}).then(res => {
-    ret.data = res.data;
-  });
-}
-
-function logout() {
-  axios.get('./public/logout').then(res => {
-    if (res.data === true) {
-      alert('退出成功!');
-      window.location.replace('/');
-    } else {
-      alert('操作失败!');
-    }
-  });
+// object转url字符串
+function urlEncoding(object) {
+  let ret = '';
+  for (let i in selectForm) {
+    ret = ret + '&' + i + '=' + (eval("object." + i) === null ? '' : eval("object." + i));
+  }
+  return ret;
 }

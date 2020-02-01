@@ -8,13 +8,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "loginFilter", urlPatterns = {"/user/*", "/owner/*"})
+@WebFilter(filterName = "loginFilter", urlPatterns = {"/admin/*", "/visit/*"})
 public class LoginFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        System.out.println("loginFilter 被调用");
         try {
             Login login = (Login) request.getSession().getAttribute("login");
             System.out.println(login.toString());

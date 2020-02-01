@@ -6,11 +6,13 @@
   <link type="text/css" rel="stylesheet" href="./css/login.css">
   <script src="./js/vue.js"></script>
   <script src="./js/axios.js"></script>
-  <script src="./js/login.js"></script>
+  <script src="./js/my.js"></script>
+  <script src="./js/connect.js"></script>
 </head>
 <body>
 <div id="app">
   <div class="loginForm">
+    <p>{{message}}</p>
     <h1>登陆</h1>
     <input type="text" v-model="username" placeholder="用户名"/>
     <div class="validation">{{usernameValidation}}</div>
@@ -18,7 +20,7 @@
     <input type="password" v-model="password" placeholder="密码"/>
     <div class="validation">{{passwordValidation}}</div>
     <br>
-    <button @click="login" id="login">登陆</button>
+    <button @click="loginF" id="login">登陆</button>
     <button onclick="alert('请联系管理员获取登陆权限')" id="register">注册</button>
     <div class="clear"></div>
   </div>
@@ -26,9 +28,14 @@
 <script>
   let app = new Vue({
     el: '#app',
-    data: {username, password, usernameValidation, passwordValidation,},
+    data: {username, password, usernameValidation, passwordValidation, message,},
     watch: {username: usernameVF, password: passwordVF,},
-    methods: {login: loginF,}
+    methods: { loginF,getUrl,},
+    created() {
+      if(getUrl('message')==='login'){
+        this.message='您未登录,请登陆';
+      }
+    }
   })
 </script>
 </body>

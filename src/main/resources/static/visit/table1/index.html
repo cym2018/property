@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>列表</title>
-  <script src="../js/vue.js"></script>
-  <script src="../js/axios.js"></script>
-  <script src="./owner.js"></script>
-  <script src="../js/my.js"></script>
-  <link rel="stylesheet" href="../css/table.css">
+  <link rel="stylesheet" href="../../css/table.css">
+  <script src="../../js/vue.js"></script>
+  <script src="../../js/axios.js"></script>
+  <script src="../../js/my.js"></script>
+  <script src="../../js/connect.js"></script>
 </head>
 <body>
 <div id="app">
@@ -72,70 +72,30 @@
     </table>
   </form>
   <button @Click="page.currPage--">上一页</button>
-  <span>第<input v-model="page.currPage+1">页,共{{page.totalPage}}页</span><span>,
-  {{page.firstRow}}-{{page.lastRow}}/{{page.totalRow}}条</span>
+  第<input v-model="page.showPage">页,共{{page.totalPage}}页 ,
+  {{page.firstRow}}-{{page.lastRow}}/{{page.totalRow}}条
   <button @Click="page.currPage++">下一页</button>
 </div>
 <script>
   const app = new Vue({
     el: '#app',
-    data: {
-      selectForm,
-      page,
-      list,
-    },
-    methods: {
-      getPage,
-      getData: function () {
-        this.getPage('/query',
-            {
-              pageSize: page.pageSize,
-              pageNumber: page.currPage,
-              name: selectForm.name,
-              buildingNumber: selectForm.buildingNumber,
-              unitNumber: selectForm.unitNumber,
-              roomNumber: selectForm.roomNumber,
-              area: selectForm.area,
-              depositToCost: selectForm.depositToCost,
-              paidForTime: selectForm.paidForTime,
-              wechatPay: selectForm.wechatPay,
-              moneyPay: selectForm.moneyPay,
-              unionPay: selectForm.unionPay,
-              refundName: selectForm.refundName,
-              refundAccount: selectForm.refundAccount,
-              refundNumber: selectForm.refundNumber,
-              breaks: selectForm.breaks,
-              paidAt51: selectForm.paidAt51,
-              depsit: selectForm.depsit,
-              garbageRate: selectForm.garbageRate,
-              waterRate: selectForm.waterRate,
-              col: selectForm.col,
-              note: selectForm.note,
-            },
-            {
-              list, page,
-            }
-        );
-      },
-    },
+    data: {selectForm, page, list,},
+    methods: {getTable1Page,},
     watch: {
       selectForm: {
         handler(newVal) {
-          if (this.page.currPage === 0)
-            this.getData();
+          if (this.page.currPage === 0) this.getTable1Page();
           else this.page.currPage = 0;
-        },
-        deep: true
+        }, deep: true
       },
-      'page.currPage': {
+      'page.showPage': {
         handler(newVal) {
-          this.getData();
+          this.getTable1Page();
         },
       }
     },
     created() {
-      console.log('created');
-      this.getData();
+      this.getTable1Page();
     },
   })
 </script>

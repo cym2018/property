@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "permissionsFilter", urlPatterns = {"/login/save", "/save","/login/list"})
+@WebFilter(filterName = "permissionsFilter", urlPatterns = {"/admin/*", "/visit/table1/edit*"})
 public class PermissionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
@@ -17,12 +17,11 @@ public class PermissionFilter implements Filter {
         System.out.println("PermissionFilter 被调用");
         try {
             Login login = (Login) request.getSession().getAttribute("login");
-            if(login.getId()!=1){
-                Exception e=new Exception();
-                throw e;
+            if (login.getId() != 1) {
+                throw new Exception();
             }
-        }catch (Exception e){
-            response.sendRedirect("/permissionError.html");
+        } catch (Exception e) {
+            response.sendRedirect("/public/permissionError");
             return;
         }
 

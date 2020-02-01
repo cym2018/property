@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.cym2018.DAO.Login;
 import xyz.cym2018.DAO.LoginRepository;
-import xyz.cym2018.DAO.LoginService;
+import xyz.cym2018.DAO.Owner;
+import xyz.cym2018.DAO.OwnerRepository;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -21,13 +21,11 @@ public class AdminController {
         /admin/save
      */
     @Autowired
-    LoginService loginService;
-    @Autowired
-    HttpServletRequest httpRequest;
-    @Autowired
     ObjectMapper objectMapper;
     @Autowired
     LoginRepository loginRepository;
+    @Autowired
+    OwnerRepository ownerRepository;
 
     @RequestMapping("/list")
     public String List() throws JsonProcessingException {
@@ -53,5 +51,15 @@ public class AdminController {
     public String Query(Login login) throws JsonProcessingException {
         login = loginRepository.getOne(login.getId());
         return objectMapper.writeValueAsString(login);
+    }
+
+    @RequestMapping("/table1/save")
+    public String Save(Owner owner) {
+        try {
+            ownerRepository.save(owner);
+            return "操作成功!";
+        } catch (Exception e) {
+            return "操作失败!\n" + e.toString();
+        }
     }
 }

@@ -5,36 +5,35 @@
   <title>主页</title>
   <script src="./js/vue.js"></script>
   <script src="./js/axios.js"></script>
-  <script src="js/my.js"></script>
+  <script src="./js/my.js"></script>
+  <script src="./js/connect.js"></script>
 </head>
 <body>
 <div id="app">
+
   <div v-if="username===false">
     <h3>请登录</h3>
     <a href="./login.html">登陆</a>
   </div>
 
-  <div id="visit" v-if="!username===false">
+  <div id="visit" v-if="username!=='false'">
     <h3>查询</h3>
     <a @click="logout()">退出登陆</a>
     <br>
-    <a href="./visit/index.html">XX小区物业信息管理系统</a>
+    <a href="visit/table1/index.html">XX小区物业信息管理系统</a>
   </div>
 
-  <div id="admin" v-if="isAdmin">
+  <div id="admin" v-if="isAdmin!=='false'">
     <h3>管理</h3>
     <a href="./admin/index.html">用户管理</a>
   </div>
+
 </div>
 <script>
   let app = new Vue({
     el: '#app',
-    data: {
-      username: false,
-      isAdmin: false,
-    }, methods: {
-      logout,
-    },
+    data: {username: false, isAdmin: false,},
+    methods: {logout,},
     created() {
       this.username = getCookie('username');
       this.isAdmin = getCookie('isAdmin');
