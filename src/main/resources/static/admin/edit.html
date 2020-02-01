@@ -55,7 +55,7 @@
       }
     },
     created() {
-      this.info.id = getVariable('id');
+      this.info.id = getVariable(window.location.search.substring(1).split(sp),'id','&');
       if (this.info.id === false) {
         this.title = '添加用户';
         this.info.id = '';

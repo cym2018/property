@@ -58,9 +58,13 @@ const page = {
   },
 };
 
-// 获取url中的参数
-function getVariable(key) {
-  let vars = window.location.search.substring(1).split("&"); //获取参数
+function getCookie(key) {
+  let vars = document.cookie.split('; ');
+  return getVariable(vars, key);
+}
+
+// 获取字符串中的参数
+function getVariable(vars, key) {
   for (let i = 0; i < vars.length; i++) {
     let pair = vars[i].split("=");
     if (pair[0] === key) {
@@ -81,5 +85,16 @@ function getPage(url, params, ret) {
 function getList(url, params, ret) {
   axios.get(url, {params: params}).then(res => {
     ret.data = res.data;
+  });
+}
+
+function logout() {
+  axios.get('./public/logout').then(res => {
+    if (res.data === true) {
+      alert('退出成功!');
+      window.location.replace('/');
+    } else {
+      alert('操作失败!');
+    }
   });
 }

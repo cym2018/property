@@ -15,10 +15,10 @@ function Test(input) {
 
 function loginF() {
   axios.get("/public/login", {params: {username: this.username, password: this.password,}}).then(res => {
-    if ((typeof res.data.username) !== "undefined") {
+    if (res.data === true) {
       alert('登陆成功!');
       window.location.replace('/');
-    }else {
+    } else {
       alert('登陆失败:用户名或密码不正确!');
     }
   });

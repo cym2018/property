@@ -2,6 +2,8 @@ package xyz.cym2018.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -24,6 +26,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+    Logger logger = LogManager.getLogger(UserController.class);
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -40,12 +43,14 @@ public class UserController {
 
     @RequestMapping("/query")
     public String Query(User user, Integer pageSize, Integer pageNumber) {
-        pageSize++;
         try {
             if (pageSize != null) {
-                Page page = userRepository.findAll(Example.of(user), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
+                pageSize++;
+                System.out.println("not null");
+                Page<User> page = userRepository.findAll(Example.of(user), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
                 return objectMapper.writeValueAsString(page);
             } else {
+                System.out.println("null");
                 user = userRepository.findById(user.getId()).get();
                 return objectMapper.writeValueAsString(user);
             }
@@ -54,6 +59,7 @@ public class UserController {
             return "";
         }
     }
+
     @RequestMapping("/queryList")
     public String QueryList(User user, Integer pageSize, Integer pageNumber) {
         pageSize++;
@@ -70,6 +76,7 @@ public class UserController {
             return "";
         }
     }
+
     @RequestMapping("/save")
     public String Save(User user) {
         try {
@@ -79,20 +86,23 @@ public class UserController {
             return "操作失败!\n" + e.toString();
         }
     }
+
     @RequestMapping("/between")
-    public String Between(Date startDate,Date endDate,Integer pageNumber,Integer pageSize) throws JsonProcessingException {
-        Page page=userRepository.findByPaidForTimeBetween(startDate,endDate,
+    public String Between(Date startDate, Date endDate, Integer pageNumber, Integer pageSize) throws JsonProcessingException {
+        Page page = userRepository.findByPaidForTimeBetween(startDate, endDate,
                 PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
         return objectMapper.writeValueAsString(page);
     }
+
     @RequestMapping("/myQuery")
-    public  String MyQuery() throws JsonProcessingException {
-        List page=userRepository.MyQuery();
+    public String MyQuery() throws JsonProcessingException {
+        List page = userRepository.MyQuery();
         return objectMapper.writeValueAsString(page);
     }
+
     @RequestMapping("/myPage")
     public String MyPage() throws JsonProcessingException {
-        List page=userRepository.MyPage(PageRequest.of(0,10));
+        List page = userRepository.MyPage(PageRequest.of(0, 10));
         return objectMapper.writeValueAsString(page);
     }
 }

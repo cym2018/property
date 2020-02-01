@@ -53,4 +53,9 @@ public class Login {
                 ", permissions=" + permissions +
                 '}';
     }
+
+    public boolean Valid() {
+        return username != null && password != null;
+
+    }
 }
