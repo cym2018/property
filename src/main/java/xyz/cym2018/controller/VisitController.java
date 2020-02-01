@@ -25,5 +25,5 @@ public class VisitController {
         return objectMapper.writeValueAsString(login);
     }
 
-    
+
 }
