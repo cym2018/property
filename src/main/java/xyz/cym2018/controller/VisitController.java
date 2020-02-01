@@ -14,6 +14,7 @@ import xyz.cym2018.DAO.Owner;
 import xyz.cym2018.DAO.OwnerRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,9 +41,10 @@ public class VisitController {
 
     @RequestMapping("/table1/query")
     public String Query(Owner owner, Integer pageSize, Integer pageNumber) {
-        if (pageSize != null) pageSize++;
+
         try {
-            if (pageSize != null) {
+            if (pageNumber != null) {
+                pageNumber++;
                 Page<Owner> page = ownerRepository.findAll(Example.of(owner), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
                 return objectMapper.writeValueAsString(page);
             } else {
@@ -53,6 +55,21 @@ public class VisitController {
                 owner = ret.get();
                 return objectMapper.writeValueAsString(owner);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    @RequestMapping("/table1/statistics")
+    public String Statistics(Owner owner) {
+        try {
+            List<Owner> list = ownerRepository.findAll(Example.of(owner));
+            owner.Clear();
+            for (Owner i : list) {
+                owner.Add(i);
+            }
+            return objectMapper.writeValueAsString(owner);
         } catch (Exception e) {
             e.printStackTrace();
             return "";

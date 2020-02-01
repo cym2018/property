@@ -23,39 +23,19 @@ function logout() {
 }
 
 // table1
-function getTable1Page() {
-  getPage('/visit/table1/query',
-      {
-        pageSize: page.pageSize,
-        pageNumber: page.currPage,
-        name: selectForm.name,
-        buildingNumber: selectForm.buildingNumber,
-        unitNumber: selectForm.unitNumber,
-        roomNumber: selectForm.roomNumber,
-        area: selectForm.area,
-        depositToCost: selectForm.depositToCost,
-        paidForTime: selectForm.paidForTime,
-        wechatPay: selectForm.wechatPay,
-        moneyPay: selectForm.moneyPay,
-        unionPay: selectForm.unionPay,
-        refundName: selectForm.refundName,
-        refundAccount: selectForm.refundAccount,
-        refundNumber: selectForm.refundNumber,
-        breaks: selectForm.breaks,
-        paidAt51: selectForm.paidAt51,
-        depsit: selectForm.depsit,
-        garbageRate: selectForm.garbageRate,
-        waterRate: selectForm.waterRate,
-        col: selectForm.col,
-        note: selectForm.note,
-      },
-      {list, page,}
-  );
+function getTable1Page(ret) {
+  self = this;
+  axios.get('/visit/table1/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm)).then(res => {
+    this.list.data = res.data.content;
+    console.log(res.data.content);
+    this.page.totalPage = res.data.totalPages;
+    this.page.totalRow = res.data.totalElements;
+  });//.then(table1Statistics());
 }
 
 function getTable1Data(id) {
   self = this;
-  axios.get('/visit/table1/query', {params: {id: id}}).then((res => {
+  axios.get('/visit/table1/query?id=' + this.id).then((res => {
     this.selectForm = res.data;
   }));
 }
@@ -66,6 +46,14 @@ function table1Submit() {
     alert(res.data);
     window.location.replace("./index.html");
   });
+}
+
+function table1Statistics() {
+  self = this;
+  axios.get('/visit/table1/statistics?info=' + urlEncoding(this.selectForm)).then(res => {
+    this.statistics = res.data;
+    this.statistics.name = '合计';
+  })
 }
 
 // admin
@@ -93,10 +81,9 @@ function adminSubmit() {
     }
   });
 }
+
 function getList(url, params, ret) {
   axios.get(url, {params: params}).then(res => {
-    console.log(res);
-    // if(ret.data==='')
     ret.data = res.data;
   });
 }

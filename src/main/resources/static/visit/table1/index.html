@@ -69,6 +69,25 @@
         <td>{{object.note}}</td>
         <td><a type="button" :href="'edit.html?id=' + object.id">修改</a></td>
       </tr>
+
+      <tr>
+        <td>{{statistics.name}}</td>
+        <td>{{statistics.buildingNumber}}</td>
+        <td>{{statistics.unitNumber}}</td>
+        <td>{{statistics.roomNumber}}</td>
+        <td>{{statistics.area}}</td>
+        <td>{{statistics.paidForTime}}</td>
+        <td>{{statistics.breaks}}</td>
+        <td>{{statistics.paidAt51}}</td>
+        <td>{{statistics.depsit}}</td>
+        <td>{{statistics.depositToCost}}</td>
+        <td>{{statistics.wechatPay}}</td>
+        <td>{{statistics.moneyPay}}</td>
+        <td>{{statistics.unionPay}}</td>
+        <td>{{statistics.refundNumber}}</td>
+        <td>{{statistics.col}}</td>
+        <td>{{statistics.note}}</td>
+      </tr>
     </table>
   </form>
   <button @Click="page.currPage--">上一页</button>
@@ -79,23 +98,27 @@
 <script>
   const app = new Vue({
     el: '#app',
-    data: {selectForm, page, list,},
-    methods: {getTable1Page,},
+    data: {selectForm, page, list,statistics,},
+    methods: {getTable1Page, table1Statistics,urlEncoding},
     watch: {
       selectForm: {
         handler(newVal) {
-          if (this.page.currPage === 0) this.getTable1Page();
-          else this.page.currPage = 0;
+          if (this.page.currPage === 0) {
+            this.getTable1Page();
+            this.table1Statistics();
+          } else this.page.currPage = 0;
         }, deep: true
       },
       'page.showPage': {
         handler(newVal) {
           this.getTable1Page();
+          this.table1Statistics();
         },
       }
     },
     created() {
       this.getTable1Page();
+      this.table1Statistics();
     },
   })
 </script>

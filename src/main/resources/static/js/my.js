@@ -17,6 +17,28 @@ function StringTest(input) {
 
 //table1
 const selectForm = {
+  "name": '',
+  "buildingNumber": "",
+  "unitNumber": "",
+  "roomNumber": "",
+  "area": "",
+  "depositToCost": "",
+  "paidForTime": "",
+  "wechatPay": "",
+  "moneyPay": "",
+  "unionPay": "",
+  "refundName": "",
+  "refundAccount": "",
+  "refundNumber": "",
+  "breaks": "",
+  "paidAt51": "",
+  "depsit": "",
+  "garbageRate": "",
+  "waterRate": "",
+  "col": "",
+  "note": "",
+};
+const statistics = {
   "name": "",
   "buildingNumber": "",
   "unitNumber": "",
@@ -146,7 +168,7 @@ function getVariable(vars, key) {
 function urlEncoding(object) {
   let ret = '';
   for (let i in selectForm) {
-    ret = ret + '&' + i + '=' + (eval("object." + i) === null ? '' : eval("object." + i));
+    ret = ret + '&' + i + '=' + ((eval("object." + i) === null || eval("object." + i) === undefined) ? '' : eval("object." + i));
   }
   return ret;
 }

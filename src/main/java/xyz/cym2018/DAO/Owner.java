@@ -7,6 +7,9 @@ import javax.persistence.Id;
 
 @Entity
 public class Owner {
+    public Owner() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -250,5 +253,30 @@ public class Owner {
                 ", col=" + col +
                 ", note='" + note + '\'' +
                 '}';
+    }
+
+    public void Add(Owner owner) {
+        owner.Clear();
+        area += owner.getArea();
+        depositToCost += owner.getDepositToCost();
+        wechatPay += owner.getWechatPay();
+        moneyPay += owner.getMoneyPay();
+        unionPay += owner.getUnionPay();
+        refundNumber += owner.getRefundNumber();
+        breaks += owner.getBreaks();
+        paidAt51 += owner.getPaidAt51();
+        col += owner.getCol();
+    }
+
+    public void Clear() {
+        area = area == null ? 0 : area;
+        depositToCost = depositToCost == null ? 0 : depositToCost;
+        wechatPay = wechatPay == null ? 0 : wechatPay;
+        moneyPay = moneyPay == null ? 0 : moneyPay;
+        unionPay = unionPay == null ? 0 : unionPay;
+        refundNumber = refundNumber == null ? 0 : refundNumber;
+        breaks = breaks == null ? 0 : breaks;
+        paidAt51 = paidAt51 == null ? 0 : paidAt51;
+        col = col == null ? 0 : col;
     }
 }
