@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>用户管理</title>
+  <script src="../js/vue.js"></script>
+  <script src="../js/axios.js"></script>
+  <script src="../js/my.js"></script>
+  <link rel="stylesheet" href="../css/table.css">
+</head>
+<body>
+<div id="app">
+  <table>
+    <tr>
+      <th>id</th>
+      <th>用户名</th>
+      <th>密码</th>
+      <th>操作</th>
+    </tr>
+    <tr v-for="object in list.data">
+      <td>{{object.id}}</td>
+      <td>{{object.username}}</td>
+      <td>{{object.password}}</td>
+      <td>
+        <a :href="'./edit.html?id='+object.id">修改</a>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <a href="edit.html">添加</a>
+      </td>
+    </tr>
+  </table>
+</div>
+<script>
+  let app = new Vue({
+    el: '#app',
+    data: {list,},
+    methods: {getList,},
+    created() {
+      this.getList('./list', {}, this.list);
+    }
+  });
+</script>
+</body>
+</html>

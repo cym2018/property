@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>列表</title>
+  <script src="../js/vue.js"></script>
+  <script src="../js/axios.js"></script>
+  <script src="./owner.js"></script>
+  <script src="../js/my.js"></script>
+  <link rel="stylesheet" href="../css/table.css">
+</head>
+<body>
+<div id="app">
+  <form id="form">
+    <table>
+      <tr>
+        <th><input v-model="selectForm.name" placeholder="姓名"/></th>
+        <th><input v-model="selectForm.buildingNumber" placeholder="楼号"/></th>
+        <th><input v-model="selectForm.unitNumber" placeholder="单元"/></th>
+        <th><input v-model="selectForm.roomNumber" placeholder="房号"/></th>
+        <th><input v-model="selectForm.area" placeholder="面积"/></th>
+        <th><input v-model="selectForm.paidForTime" placeholder="交费至"/></th>
+        <th><input v-model="selectForm.breaks" placeholder="减免金额"/></th>
+        <th><input v-model="selectForm.paidAt51" placeholder="5月1日交费"/></th>
+        <th><input v-model="selectForm.depsit" placeholder="押金"/></th>
+        <th><input v-model="selectForm.depositToCost" placeholder="押金抵费"/></th>
+        <th><input v-model="selectForm.wechatPay" placeholder="微信支付"/></th>
+        <th><input v-model="selectForm.moneyPay" placeholder="现金支付"/></th>
+        <th><input v-model="selectForm.unionPay" placeholder="银联支付"/></th>
+        <th><input v-model="selectForm.refundNumber" placeholder="退款金额"/></th>
+        <th><input v-model="selectForm.col" placeholder="备注1"/></th>
+        <th><input v-model="selectForm.note" placeholder="备注2"/></th>
+      </tr>
+      <tr>
+        <th>姓名</th>
+        <th>楼号</th>
+        <th>单元</th>
+        <th>房号</th>
+        <th>面积</th>
+        <th>交费至</th>
+        <th>减免金额</th>
+        <th>5月1日缴费</th>
+        <th>押金</th>
+        <th>押金抵费</th>
+        <th>微信支付</th>
+        <th>现金支付</th>
+        <th>银联支付</th>
+        <th>退款金额</th>
+        <th>备注1</th>
+        <th>备注2</th>
+        <th>操作</th>
+      </tr>
+      <tr v-for="(object,i) in list.data">
+        <td>{{object.name}}</td>
+        <td>{{object.buildingNumber}}</td>
+        <td>{{object.unitNumber}}</td>
+        <td>{{object.roomNumber}}</td>
+        <td>{{object.area}}</td>
+        <td>{{object.paidForTime}}</td>
+        <td>{{object.breaks}}</td>
+        <td>{{object.paidAt51}}</td>
+        <td>{{object.depsit}}</td>
+        <td>{{object.depositToCost}}</td>
+        <td>{{object.wechatPay}}</td>
+        <td>{{object.moneyPay}}</td>
+        <td>{{object.unionPay}}</td>
+        <td>{{object.refundNumber}}</td>
+        <td>{{object.col}}</td>
+        <td>{{object.note}}</td>
+        <td><a type="button" :href="'edit.html?id=' + object.id">修改</a></td>
+      </tr>
+    </table>
+  </form>
+  <button @Click="page.currPage--">上一页</button>
+  <span>第<input v-model="page.currPage+1">页,共{{page.totalPage}}页</span><span>,
+  {{page.firstRow}}-{{page.lastRow}}/{{page.totalRow}}条</span>
+  <button @Click="page.currPage++">下一页</button>
+</div>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      selectForm,
+      page,
+      list,
+    },
+    methods: {
+      getPage,
+      getData: function () {
+        this.getPage('/query',
+            {
+              pageSize: page.pageSize,
+              pageNumber: page.currPage,
+              name: selectForm.name,
+              buildingNumber: selectForm.buildingNumber,
+              unitNumber: selectForm.unitNumber,
+              roomNumber: selectForm.roomNumber,
+              area: selectForm.area,
+              depositToCost: selectForm.depositToCost,
+              paidForTime: selectForm.paidForTime,
+              wechatPay: selectForm.wechatPay,
+              moneyPay: selectForm.moneyPay,
+              unionPay: selectForm.unionPay,
+              refundName: selectForm.refundName,
+              refundAccount: selectForm.refundAccount,
+              refundNumber: selectForm.refundNumber,
+              breaks: selectForm.breaks,
+              paidAt51: selectForm.paidAt51,
+              depsit: selectForm.depsit,
+              garbageRate: selectForm.garbageRate,
+              waterRate: selectForm.waterRate,
+              col: selectForm.col,
+              note: selectForm.note,
+            },
+            {
+              list, page,
+            }
+        );
+      },
+    },
+    watch: {
+      selectForm: {
+        handler(newVal) {
+          if (this.page.currPage === 0)
+            this.getData();
+          else this.page.currPage = 0;
+        },
+        deep: true
+      },
+      'page.currPage': {
+        handler(newVal) {
+          this.getData();
+        },
+      }
+    },
+    created() {
+      console.log('created');
+      this.getData();
+    },
+  })
+</script>
+</body>
+</html>

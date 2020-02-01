@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>注册</title>
+  <link type="text/css" rel="stylesheet" href="./css/login.css">
+  <script src="./js/vue.js"></script>
+  <script src="./js/axios.js"></script>
+  <script src="./js/login.js"></script>
+</head>
+<body>
+<div id="app">
+  <div class="loginForm">
+    <h1>登陆</h1>
+    <input type="text" v-model="username" placeholder="用户名"/>
+    <div class="validation">{{usernameValidation}}</div>
+    <br>
+    <input type="password" v-model="password" placeholder="密码"/>
+    <div class="validation">{{passwordValidation}}</div>
+    <br>
+    <button @click="login" id="login">登陆</button>
+    <button onclick="alert('请联系管理员获取登陆权限')" id="register">注册</button>
+    <div class="clear"></div>
+  </div>
+</div>
+<script>
+  let app = new Vue({
+    el: '#app',
+    data: {username, password, usernameValidation, passwordValidation,},
+    watch: {username: usernameVF, password: passwordVF,},
+    methods: {login: loginF,}
+  })
+</script>
+
+</body>
+</html>

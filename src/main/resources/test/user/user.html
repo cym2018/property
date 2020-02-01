@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>用户表</title>
+  <script src="../../static/js/vue.js"></script>
+  <script src="../../static/js/axios.js"></script>
+
+
+  <script>
+    'use strict';
+
+    let myList = [], pageSize = 30, countRow = 0, pageNumber = 1, totalPage = 0, lastRow = 0, firstRow = 0,
+        name = '', buildingNumber = '', unitNumber = '', roomNumber = '', area = '', paidForTime = '',
+        textNote1 = '', textNote2 = '', numberNote1 = '', numberNote2 = '';
+  </script>
+  <style>
+    table, table tr th, table tr td {
+      border: 1px solid #0094ff;
+    }
+
+    .smallInput th input {
+      width: 50px;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <form id="form">
+    <table>
+      <tr>
+        <th>按日期筛选</th>
+        <th colspan="4">开始日期：<input type="date" v-model="startDate"></th>
+        <th colspan="3">结束日期：<input type="date" v-model="endDate"></th>
+      </tr>
+      <tr class="smallInput">
+        <th>按位置筛选</th>
+        <th><input v-model="buildingNumber" placeholder="楼号"/></th>
+        <th><input v-model="unitNumber" placeholder="单元"/></th>
+        <th><input v-model="roomNumber" placeholder="房号"/></th>
+      </tr>
+      <tr>
+        <th>姓名</th>
+        <th>楼号</th>
+        <th>单元</th>
+        <th>房号</th>
+        <th>面积</th>
+        <th>交费至</th>
+        <th>文字备注1</th>
+        <th>文字备注2</th>
+        <th>数值备注1</th>
+        <th>数值备注2</th>
+        <th>操作</th>
+      </tr>
+      <tr v-for="(object,i) in myList">
+        <td>{{object.name}}</td>
+        <td>{{object.buildingNumber}}</td>
+        <td>{{object.unitNumber}}</td>
+        <td>{{object.roomNumber}}</td>
+        <td>{{object.area}}</td>
+        <td>{{object.paidForTime}}</td>
+        <td>{{object.textNote1}}</td>
+        <td>{{object.textNote2}}</td>
+        <td>{{object.numberNote1}}</td>
+        <td>{{object.numberNote2}}</td>
+        <td>
+          <a type="button" :href="modify(object.id)">修改</a>
+        </td>
+      </tr>
+    </table>
+  </form>
+  <button @Click="pageNumber--">上一页</button>
+  <input v-model="pageNumber">
+  <button @Click="pageNumber++">下一页</button>
+  <span>第{{pageNumber}}页,共{{totalPage}}页</span><span>,{{firstRow}}-{{lastRow}}/{{countRow}}条</span>
+</div>
+<script>
+  let endDate;
+  let startDate;
+  const app = new Vue({
+    el: '#app',
+    data: {
+      countRow, firstRow, pageSize, pageNumber, totalPage, lastRow,
+      myList, name, buildingNumber, unitNumber, roomNumber, area,
+      paidForTime, textNote1, textNote2, numberNote1, numberNote2, startDate, endDate,
+    },
+    methods: {
+      getData: function () {
+        let self = this;
+        if (this.endDate !== undefined && this.startDate !== undefined) {
+          axios.get('/user/between', {
+            params: {
+              pageSize: this.pageSize,
+              pageNumber: this.pageNumber - 1,
+              date1: this.startDate,
+              date2: this.endDate,
+            },
+          }).then(res => {
+            const backData = res.data;
+            this.myList = backData.content;
+            this.totalPage = backData.totalPages;
+            this.countRow = backData.totalElements;
+            this.firstRow = backData.size * backData.number + 1;
+            this.lastRow = backData.size * backData.number + backData.numberOfElements;
+          });
+        } else {
+          axios.get('/user/query?pageSize=' + this.pageSize + '&pageNumber=' + (this.pageNumber - 1) + this.formUrl).then((res => {
+            const backData = res.data;
+            this.myList = backData.content;
+            this.totalPage = backData.totalPages;
+            this.countRow = backData.totalElements;
+            this.firstRow = backData.size * backData.number + 1;
+            this.lastRow = backData.size * backData.number + backData.numberOfElements;
+          }));
+        }
+      },
+      modify: function (id) {
+        return "/userInfo.html?userId=" + id;
+      }
+    },
+    watch: {
+      startDate: function (newVal, endVal) {
+        if (this.endDate !== undefined) {
+          this.getData();
+        }
+      },
+      endDate: function (newVal) {
+        if (this.startDate !== undefined) {
+          this.getData();
+        }
+      },
+      pageNumber: function (newVal, oldVal) {
+        if (newVal === '')
+          return;
+        if (newVal <= this.totalPage && newVal > 0)
+          this.getData();
+        else
+          this.pageNumber = oldVal;
+      },
+      formUrl: function () {
+        this.getData();
+      },
+    },
+    computed: {
+      formUrl: function () {
+        this.pageNumber = 1;
+        this.startDate = undefined;
+        this.endDate = undefined;
+        return '&buildingNumber=' + this.buildingNumber +
+            '&unitNumber=' + this.unitNumber +
+            '&roomNumber=' + this.roomNumber;
+      },
+    },
+    created() {
+      this.getData();
+    },
+  })
+</script>
+</body>
+</html>
