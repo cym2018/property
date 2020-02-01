@@ -1,1 +1,2 @@
 src/main/resources/static/js/axios.js -linguist-detectable
+*.js -linguist-detectable
