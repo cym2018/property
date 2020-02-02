@@ -10,5 +10,11 @@
         <property name="serverTimezone" value="CST" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="property@cym2018.xyz" uuid="6368d338-4793-4723-9a9a-e444717bd3e3">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://cym2018.xyz:3306/property</jdbc-url>
+    </data-source>
   </component>
 </project>
