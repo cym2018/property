@@ -14,7 +14,6 @@ public class PermissionFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-        System.out.println("PermissionFilter 被调用");
         try {
             Login login = (Login) request.getSession().getAttribute("login");
             if (login.getId() != 1) {

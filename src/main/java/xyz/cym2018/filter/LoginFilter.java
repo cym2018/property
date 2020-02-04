@@ -16,12 +16,10 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         try {
             Login login = (Login) request.getSession().getAttribute("login");
-            System.out.println(login.toString());
-        }catch (Exception e){
+        } catch (Exception e) {
             response.sendRedirect("/login.html?message=login");
             return;
         }
-
         filterChain.doFilter(servletRequest, servletResponse);
     }
 }

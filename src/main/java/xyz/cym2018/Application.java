@@ -7,13 +7,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.PostConstruct;
 import java.util.TimeZone;
 
 @SpringBootApplication
-@RestController
 @ServletComponentScan(basePackages = "xyz.cym2018.filter")
 public class Application {
     @PostConstruct
@@ -33,7 +31,7 @@ public class Application {
 
     @Bean
     ObjectMapper CreateObjectMapper() {
-        ObjectMapper objectMapper=new ObjectMapper();
+        ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         return objectMapper;
     }
