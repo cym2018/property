@@ -2,5 +2,5 @@ package xyz.cym2018.DAO;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LoginRepository extends JpaRepository<Login, Integer> {
+public interface Table2Repository extends JpaRepository<Table2, Integer> {
 }

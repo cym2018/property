@@ -9,9 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.cym2018.DAO.Login;
-import xyz.cym2018.DAO.Owner;
-import xyz.cym2018.DAO.OwnerRepository;
+import xyz.cym2018.DAO.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -23,10 +21,14 @@ public class VisitController {
     /*
         /visit/table1/query
         /visit/table1/save
+        /visit/table2/query
+        /visit/table2/save
         /visit/info
      */
     @Autowired
     OwnerRepository ownerRepository;
+    @Autowired
+    Table2Repository table2Repository;
     @Autowired
     HttpServletRequest httpRequest;
     @Autowired
@@ -37,7 +39,6 @@ public class VisitController {
         Login login = (Login) httpRequest.getSession().getAttribute("login");
         return objectMapper.writeValueAsString(login);
     }
-
 
     @RequestMapping("/table1/query")
     public String Query(Owner owner, Integer pageSize, Integer pageNumber) {
@@ -74,5 +75,38 @@ public class VisitController {
         }
     }
 
+    @RequestMapping("/table2/query")
+    public String Table2Query(Table2 table2, Integer pageSize, Integer pageNumber){
+        try {
+            if (pageNumber != null) {
+                Page<Table2> page = table2Repository.findAll(Example.of(table2), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
+                return objectMapper.writeValueAsString(page);
+            } else {
+                Optional<Table2> ret = table2Repository.findById(table2.getId());
+                if (!ret.isPresent()) {
+                    throw new Exception("无符合条件的记录");
+                }
+                table2 = ret.get();
+                return objectMapper.writeValueAsString(table2);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 
+    @RequestMapping("/table2/statistics")
+    public String Table2Statistics(Table2 table2) {
+        try {
+            List<Table2> list = table2Repository.findAll(Example.of(table2));
+            table2.Clear();
+            for (Table2 i : list) {
+                table2.Add(i);
+            }
+            return objectMapper.writeValueAsString(table2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
 }

@@ -1,15 +1,21 @@
 package xyz.cym2018.DAO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+@JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "breaks", "paidAt51",
+        "depsit", "depositToCost", "wechatPay", "moneyPay", "unionPay", "refundNumber", "col", "note"})
 @Entity
 public class Owner {
     public Owner() {
     }
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -34,8 +40,10 @@ public class Owner {
     // 银联支付
     private Double unionPay;
     // 退款姓名
+    @JsonIgnore
     private String refundName;
     // 退款账号
+    @JsonIgnore
     private String refundAccount;
     // 退款金额
     private Double refundNumber;
@@ -46,8 +54,10 @@ public class Owner {
     // 押金
     private String depsit;
     // 垃圾
+    @JsonIgnore
     private Double garbageRate;
     // 水费
+    @JsonIgnore
     private Double waterRate;
     // col
     private Double col;
