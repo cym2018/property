@@ -53,23 +53,7 @@
   const app = new Vue({
     el: '#app',
     data: {selectForm, page, list, statistics,},
-    methods: {eval,
-      getTable1Page, table1Statistics, urlEncoding, objectEncoding: function (object) {
-        let ret = '';
-        for (let i in object) {
-          console.log(i);
-          ret = ret + '&' + i + '=' + ((eval("object." + i) === null || eval("object." + i) === undefined) ? '' : eval("object." + i));
-        }
-        return ret;
-      },getKey:function (object,i) {
-        for(let key in object){
-          i--;
-          if(i===0){
-            return key;
-          }
-        }
-      }
-    },
+    methods: {getTable1Page, table1Statistics, urlEncoding,},
     watch: {
       selectForm: {
         handler(newVal) {
