@@ -2,6 +2,8 @@ package xyz.cym2018.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -18,15 +20,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/visit")
 public class VisitController {
-    /*
-        /visit/table1/query
-        /visit/table1/save
-        /visit/table2/query
-        /visit/table2/save
-        /visit/info
-     */
+    final static Logger logger = LogManager.getLogger(VisitController.class);
     @Autowired
-    OwnerRepository ownerRepository;
+    Table1Repository table1Repository;
     @Autowired
     Table2Repository table2Repository;
     @Autowired
@@ -41,18 +37,18 @@ public class VisitController {
     }
 
     @RequestMapping("/table1/query")
-    public String Query(Owner owner, Integer pageSize, Integer pageNumber) {
+    public String Table1Query(Table1 table1, Integer pageSize, Integer pageNumber) {
         try {
             if (pageNumber != null) {
-                Page<Owner> page = ownerRepository.findAll(Example.of(owner), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
+                Page<Table1> page = table1Repository.findAll(Example.of(table1), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
                 return objectMapper.writeValueAsString(page);
             } else {
-                Optional<Owner> ret = ownerRepository.findById(owner.getId());
+                Optional<Table1> ret = table1Repository.findById(table1.getId());
                 if (!ret.isPresent()) {
                     throw new Exception("无符合条件的记录");
                 }
-                owner = ret.get();
-                return objectMapper.writeValueAsString(owner);
+                table1 = ret.get();
+                return objectMapper.writeValueAsString(table1);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,14 +57,14 @@ public class VisitController {
     }
 
     @RequestMapping("/table1/statistics")
-    public String Statistics(Owner owner) {
+    public String Table1Statistics(Table1 table1) {
         try {
-            List<Owner> list = ownerRepository.findAll(Example.of(owner));
-            owner.Clear();
-            for (Owner i : list) {
-                owner.Add(i);
+            List<Table1> list = table1Repository.findAll(Example.of(table1));
+            table1.Clear();
+            for (Table1 i : list) {
+                table1.Add(i);
             }
-            return objectMapper.writeValueAsString(owner);
+            return objectMapper.writeValueAsString(table1);
         } catch (Exception e) {
             e.printStackTrace();
             return "";
@@ -76,7 +72,7 @@ public class VisitController {
     }
 
     @RequestMapping("/table2/query")
-    public String Table2Query(Table2 table2, Integer pageSize, Integer pageNumber){
+    public String Table2Query(Table2 table2, Integer pageSize, Integer pageNumber) {
         try {
             if (pageNumber != null) {
                 Page<Table2> page = table2Repository.findAll(Example.of(table2), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));

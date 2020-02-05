@@ -2,30 +2,29 @@ package xyz.cym2018.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.cym2018.DAO.Login;
 import xyz.cym2018.DAO.LoginRepository;
-import xyz.cym2018.DAO.Owner;
-import xyz.cym2018.DAO.OwnerRepository;
+import xyz.cym2018.DAO.Table1;
+import xyz.cym2018.DAO.Table1Repository;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    /*
-        /admin/query
-        /admin/save
-     */
+    final static Logger logger = LogManager.getLogger(AdminController.class);
     @Autowired
     ObjectMapper objectMapper;
     @Autowired
     LoginRepository loginRepository;
     @Autowired
-    OwnerRepository ownerRepository;
+    Table1Repository table1Repository;
 
     @RequestMapping("/list")
     public String List() throws JsonProcessingException {
@@ -54,9 +53,9 @@ public class AdminController {
     }
 
     @RequestMapping("/table1/save")
-    public String Save(Owner owner) {
+    public String Save(Table1 table1) {
         try {
-            ownerRepository.save(owner);
+            table1Repository.save(table1);
             return "操作成功!";
         } catch (Exception e) {
             return "操作失败!\n" + e.toString();

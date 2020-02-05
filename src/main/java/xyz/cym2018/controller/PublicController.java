@@ -1,5 +1,7 @@
 package xyz.cym2018.controller;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/public")
 public class PublicController {
-    /*
-        /public/login
-     */
-
+    final static Logger logger = LogManager.getLogger(AdminController.class);
     @Autowired
     HttpServletRequest httpRequest;
     @Autowired
@@ -43,10 +42,13 @@ public class PublicController {
                 cookie = new Cookie("isAdmin", login.getId() == 1 ? "true" : "false");
                 cookie.setPath("/");
                 httpResponse.addCookie(cookie);
+                logger.info("success");
                 return true;
             }
-        } catch (Exception ignore) {
+        } catch (Exception e) {
+            logger.warn(e.toString());
         }
+        logger.info("fail");
         return false;
     }
 

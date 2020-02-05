@@ -3,19 +3,16 @@ package xyz.cym2018.DAO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "breaks", "paidAt51",
         "depsit", "depositToCost", "wechatPay", "moneyPay", "unionPay", "refundNumber", "col", "note"})
 @Entity
-public class Owner {
-    public Owner() {
+@Table(name = "owner")
+public class Table1 {
+    public Table1() {
     }
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -265,17 +262,17 @@ public class Owner {
                 '}';
     }
 
-    public void Add(Owner owner) {
-        owner.Clear();
-        area += owner.getArea();
-        depositToCost += owner.getDepositToCost();
-        wechatPay += owner.getWechatPay();
-        moneyPay += owner.getMoneyPay();
-        unionPay += owner.getUnionPay();
-        refundNumber += owner.getRefundNumber();
-        breaks += owner.getBreaks();
-        paidAt51 += owner.getPaidAt51();
-        col += owner.getCol();
+    public void Add(Table1 table1) {
+        table1.Clear();
+        area += table1.getArea();
+        depositToCost += table1.getDepositToCost();
+        wechatPay += table1.getWechatPay();
+        moneyPay += table1.getMoneyPay();
+        unionPay += table1.getUnionPay();
+        refundNumber += table1.getRefundNumber();
+        breaks += table1.getBreaks();
+        paidAt51 += table1.getPaidAt51();
+        col += table1.getCol();
     }
 
     public void Clear() {
