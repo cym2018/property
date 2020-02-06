@@ -54,26 +54,24 @@
     el: '#app',
     data: {selectForm, page, list, statistics,},
     methods: {getTable1Page, table1Statistics, urlEncoding,},
-    watch: {
-      selectForm: {
-        handler(newVal) {
-          if (this.page.currPage === 0) {
-            this.getTable1Page();
-            this.table1Statistics();
-          } else this.page.currPage = 0;
-        }, deep: true
-      },
-      'page.showPage': {
-        handler(newVal) {
-          this.getTable1Page();
-          this.table1Statistics();
-        },
-      }
-    },
     created() {
       this.getTable1Page();
       this.table1Statistics();
     },
+  });
+  app.$watch('page.showPage', {
+    handler(newVal) {
+      this.getTable1Page();
+      this.table1Statistics();
+    },
+  });
+  app.$watch('selectForm', {
+    handler(newVal) {
+      if (this.page.currPage === 0) {
+        this.getTable1Page();
+        this.table1Statistics();
+      } else this.page.currPage = 0;
+    }, deep: true
   })
 </script>
 </body>
