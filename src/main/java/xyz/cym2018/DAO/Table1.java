@@ -3,12 +3,14 @@ package xyz.cym2018.DAO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "breaks", "paidAt51",
         "depsit", "depositToCost", "wechatPay", "moneyPay", "unionPay", "refundNumber", "col", "note"})
 @Entity
-@Table(name = "owner")
 //商基鑫城
 public class Table1 {
     public Table1() {
@@ -277,15 +279,15 @@ public class Table1 {
     }
 
     public void Clear() {
-        area = area == null ? 0 : area;
-        depositToCost = depositToCost == null ? 0 : depositToCost;
-        wechatPay = wechatPay == null ? 0 : wechatPay;
-        moneyPay = moneyPay == null ? 0 : moneyPay;
-        unionPay = unionPay == null ? 0 : unionPay;
-        refundNumber = refundNumber == null ? 0 : refundNumber;
-        breaks = breaks == null ? 0 : breaks;
-        paidAt51 = paidAt51 == null ? 0 : paidAt51;
-        col = col == null ? 0 : col;
+        area = 0.0;
+        depositToCost = 0.0;
+        wechatPay = 0.0;
+        moneyPay = 0.0;
+        unionPay = 0.0;
+        refundNumber = 0.0;
+        breaks = 0.0;
+        paidAt51 = 0.0;
+        col = 0.0;
     }
 
     public void Rounded() {
