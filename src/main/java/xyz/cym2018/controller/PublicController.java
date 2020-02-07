@@ -38,9 +38,11 @@ public class PublicController {
                 httpRequest.getSession().setAttribute("login", login);
                 Cookie cookie = new Cookie("username", login.getUsername());
                 cookie.setPath("/");
+                cookie.setMaxAge(600);
                 httpResponse.addCookie(cookie);
                 cookie = new Cookie("isAdmin", login.getId() == 1 ? "true" : "false");
                 cookie.setPath("/");
+                cookie.setMaxAge(600);
                 httpResponse.addCookie(cookie);
                 logger.info("success");
                 return true;
