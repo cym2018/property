@@ -33,7 +33,7 @@ public class Table1 {
     // 押金抵费
     private Double depositToCost;
     // 交费至
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private String paidForTime;
     // 微信支付
     private Double wechatPay;
@@ -268,18 +268,18 @@ public class Table1 {
     }
 
     public void Add(Table1 table1) {
-        table1.Clear();
-        area += table1.getArea();
-        depositToCost += table1.getDepositToCost();
-        wechatPay += table1.getWechatPay();
-        moneyPay += table1.getMoneyPay();
-        unionPay += table1.getUnionPay();
-        refundNumber += table1.getRefundNumber();
-        breaks += table1.getBreaks();
-        paidAt51 += table1.getPaidAt51();
-        col += table1.getCol();
+        area += table1.area == null ? 0 : table1.area;
+        depositToCost += table1.depositToCost == null ? 0 : table1.depositToCost;
+        wechatPay += table1.wechatPay == null ? 0 : table1.wechatPay;
+        moneyPay += table1.moneyPay == null ? 0 : table1.moneyPay;
+        unionPay += table1.unionPay == null ? 0 : table1.unionPay;
+        refundNumber += table1.refundNumber == null ? 0 : table1.refundNumber;
+        breaks += table1.breaks == null ? 0 : table1.breaks;
+        paidAt51 += table1.paidAt51 == null ? 0 : table1.paidAt51;
+        col += table1.col == null ? 0 : table1.col;
     }
 
+    // 清空数据
     public void Clear() {
         area = 0.0;
         depositToCost = 0.0;
@@ -292,6 +292,8 @@ public class Table1 {
         col = 0.0;
     }
 
+
+    // 四舍五入
     public void Rounded() {
         area = (double) Math.round(area * 100) / 100;
         depositToCost = (double) Math.round(depositToCost * 100) / 100;

@@ -243,13 +243,13 @@ public class Table2 {
     }
 
     public void Add(Table2 table2) {
-        area = area + (table2.area == null ? 0 : table2.area);
-        refundNumber = refundNumber + (table2.refundNumber == null ? 0 : table2.refundNumber);
-        garbage = garbage + (table2.garbage == null ? 0 : table2.garbage);
-        property1 = property1 + (table2.property1 == null ? 0 : table2.property1);
-        property2 = property2 + (table2.property2 == null ? 0 : table2.property2);
-        property3 = property3 + (table2.property3 == null ? 0 : table2.property3);
-        numberNote = numberNote + (table2.numberNote == null ? 0 : table2.numberNote);
+        area += table2.area == null ? 0 : table2.area;
+        refundNumber += table2.refundNumber == null ? 0 : table2.refundNumber;
+        garbage += table2.garbage == null ? 0 : table2.garbage;
+        property1 += table2.property1 == null ? 0 : table2.property1;
+        property2 += table2.property2 == null ? 0 : table2.property2;
+        property3 += table2.property3 == null ? 0 : table2.property3;
+        numberNote += table2.numberNote == null ? 0 : table2.numberNote;
     }
 
     public void Rounded() {
