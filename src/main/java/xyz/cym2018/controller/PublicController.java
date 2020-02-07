@@ -56,11 +56,12 @@ public class PublicController {
     public boolean Logout() {
         httpRequest.getSession().removeAttribute("login");
         Cookie[] cookies = httpRequest.getCookies();
-        for (Cookie cookie : cookies) {
-            cookie.setMaxAge(0);
-            cookie.setPath("/");
-            httpResponse.addCookie(cookie);
-        }
+        if (cookies != null)
+            for (Cookie cookie : cookies) {
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                httpResponse.addCookie(cookie);
+            }
         return true;
     }
 

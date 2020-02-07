@@ -64,6 +64,8 @@ public class VisitController {
             for (Table1 i : list) {
                 table1.Add(i);
             }
+            table1.Rounded();
+            System.out.println(table1.toString());
             return objectMapper.writeValueAsString(table1);
         } catch (Exception e) {
             e.printStackTrace();

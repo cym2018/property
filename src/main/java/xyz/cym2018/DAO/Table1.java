@@ -9,6 +9,7 @@ import javax.persistence.*;
         "depsit", "depositToCost", "wechatPay", "moneyPay", "unionPay", "refundNumber", "col", "note"})
 @Entity
 @Table(name = "owner")
+//商基鑫城
 public class Table1 {
     public Table1() {
     }
@@ -285,5 +286,17 @@ public class Table1 {
         breaks = breaks == null ? 0 : breaks;
         paidAt51 = paidAt51 == null ? 0 : paidAt51;
         col = col == null ? 0 : col;
+    }
+
+    public void Rounded() {
+        area = (double) Math.round(area * 100) / 100;
+        depositToCost = (double) Math.round(depositToCost * 100) / 100;
+        wechatPay = (double) Math.round(wechatPay * 100) / 100;
+        moneyPay = (double) Math.round(moneyPay * 100) / 100;
+        unionPay = (double) Math.round(unionPay * 100) / 100;
+        refundNumber = (double) Math.round(refundNumber * 100) / 100;
+        breaks = (double) Math.round(breaks * 100) / 100;
+        paidAt51 = (double) Math.round(paidAt51 * 100) / 100;
+        col = (double) Math.round(col * 100) / 100;
     }
 }

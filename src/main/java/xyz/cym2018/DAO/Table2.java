@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import java.sql.Date;
 
 @Entity
+// 彩虹小区
 public class Table2 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

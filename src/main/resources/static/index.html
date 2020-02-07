@@ -11,28 +11,34 @@
 <body>
 <div id="app">
 
-  <div v-if="username===false">
-    <h3>请登录</h3>
-    <a href="./login.html">登陆</a>
+  <div id="welcome">
+    <h2>
+      您好,
+      <a v-if="!username" href="login.html">请登录</a>
+      <span v-if="username">{{username}}</span>
+    </h2>
+    <button v-if="username" @click="logout()">退出登陆</button>
   </div>
 
-  <div id="visit" v-if="username!=='false'">
+  <div id="visit">
     <h3>查询</h3>
-    <a @click="logout()">退出登陆</a>
-    <br>
-    <a href="visit/table1/index1.html">商基鑫城物业信息管理系统</a>
-<!--    <br>-->
-<!--    <a href="visit/table2/index.html">彩虹小区物业信息管理系统</a>-->
+    <a href="visit/table1/index.html">商基鑫城物业信息管理系统</a><br>
+    <a href="visit/table2/index.html">彩虹小区物业信息管理系统</a>
   </div>
 
-  <div id="admin" v-if="isAdmin!=='false'">
+  <div id="admin">
     <h3>管理</h3>
     <a href="./admin/index.html">用户管理</a>
   </div>
-
+  <div>
+    <h3>关于</h3>
+    <a href="https://github.com/cym2018/property">项目地址</a>
+    <a href="mailto:cym2018.xyz@qq.com">功能建议</a><br>
+    Made By Cym2018
+  </div>
 </div>
 <script>
-  let app = new Vue ({
+  let app = new Vue({
     el: '#app',
     data: {username: false, isAdmin: false,},
     methods: {logout,},

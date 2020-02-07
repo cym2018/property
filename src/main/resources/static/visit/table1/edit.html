@@ -7,41 +7,64 @@
   <script src="../../js/axios.js"></script>
   <script src="../../js/my.js"></script>
   <script src="../../js/connect.js"></script>
+  <style>
+    textarea {
+      width: 100%;
+      height: 100px;
+    }
+  </style>
+  <link rel="stylesheet" href="../../css/main.css">
 </head>
 <body>
 <div id="app">
-  <h3>编辑</h3>
-  id:<input v-model="id" name="id"/><br>
-  姓名:<input v-model="selectForm.name" name="name"/><br>
-  楼号:<input v-model="selectForm.buildingNumber" name="buildingNumber"/><br>
-  单元:<input v-model="selectForm.unitNumber" name="unitNumber"/><br>
-  房号:<input v-model="selectForm.roomNumber" name="roomNumber"/><br>
-  面积:<input v-model="selectForm.area" name="area"/><br>
-  押金抵费:<input v-model="selectForm.depositToCost" name="depositToCost"/><br>
-  交费至:<input v-model="selectForm.paidForTime" name="paidForTime"/><br>
-  微信支付:<input v-model="selectForm.wechatPay" name="wechatPay"/><br>
-  现金支付:<input v-model="selectForm.moneyPay" name="moneyPay"/><br>
-  银联支付:<input v-model="selectForm.unionPay" name="unionPay"/><br>
-  退款姓名:<input v-model="selectForm.refundName" name="refundName"/><br>
-  退款账号:<input v-model="selectForm.refundAccount" name="refundAccount"/><br>
-  退款金额:<input v-model="selectForm.refundNumber" name="refundNumber"/><br>
-  减免金额:<input v-model="selectForm.breaks" name="breaks"/><br>
-  5月1日交费:<input v-model="selectForm.paidAt51" name="paidAt51"/><br>
-  押金:<input v-model="selectForm.depsit" name="depsit"/><br>
-  垃圾:<input v-model="selectForm.garbageRate" name="garbageRate"/><br>
-  水费:<input v-model="selectForm.waterRate" name="waterRate"/><br>
-  数值备注:<input v-model="selectForm.col" name="col"/><br>
-  文字备注:<input v-model="selectForm.note" name="note"/><br>
+  <h2>{{message}}</h2>
+  <br>
+  <div class="floatLeft">
+    <h4>住户信息</h4>
+    <span>姓名:</span><input v-model="selectForm.name" name="name"/><br>
+    <span>楼号:</span><input v-model="selectForm.buildingNumber" name="buildingNumber"/><br>
+    <span>单元:</span><input v-model="selectForm.unitNumber" name="unitNumber"/><br>
+    <span>房号:</span><input v-model="selectForm.roomNumber" name="roomNumber"/><br>
+    <span>面积:</span><input v-model="selectForm.area" name="area"/><br>
+  </div>
+  <div class="floatLeft">
+    <h4>交费信息</h4>
+    <span>交费至:</span><input v-model="selectForm.paidForTime" name="paidForTime"/><br>
+    <span>减免金额:</span><input v-model="selectForm.breaks" name="breaks"/><br>
+    <span>5月1日交费:</span><input v-model="selectForm.paidAt51" name="paidAt51"/><br>
+    <span>押金:</span><input v-model="selectForm.depsit" name="depsit"/><br>
+    <span>押金抵费:</span><input v-model="selectForm.depositToCost" name="depositToCost"/><br>
+    <span>退款金额:</span><input v-model="selectForm.refundNumber" name="refundNumber"/><br>
+  </div>
+  <div class="floatLeft">
+    <h4>支付信息</h4>
+    <span>微信支付:</span><input v-model="selectForm.wechatPay" name="wechatPay"/><br>
+    <span>现金支付:</span><input v-model="selectForm.moneyPay" name="moneyPay"/><br>
+    <span>银联支付:</span><input v-model="selectForm.unionPay" name="unionPay"/><br>
+  </div>
+  <div class="floatLeft">
+    <h4>备注</h4>
+    <span>数值备注:</span><input v-model="selectForm.col" name="col"/><br>
+    <span>文字备注:</span>
+    <textarea v-model="selectForm.note" name="note"></textarea>
+  </div>
+  <div class="floatClear"></div>
   <button @click="table1Submit">保存</button>
 </div>
 <script>
   const app = new Vue({
     el: '#app',
-    data: {id, selectForm,},
+    data: {id, selectForm, message: ''},
     methods: {getTable1Data, urlEncoding, table1Submit,},
     created() {
       this.id = getUrl('id');
-      this.getTable1Data(this.id,);
+      if (this.id !== false) {
+        this.message = '编辑';
+        this.getTable1Data(this.id,);
+      } else {
+        this.message = '添加';
+        this.id = '';
+      }
     },
   });
 </script>

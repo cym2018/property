@@ -14,7 +14,22 @@
   <form id="form">
     <table>
       <tr>
-        <th v-for="(object,i) in selectForm"><input/></th>
+        <th><input v-model="selectForm.name" placeholder="姓名"/></th>
+        <th><input v-model="selectForm.buildingNumber" placeholder="楼号"/></th>
+        <th><input v-model="selectForm.unitNumber" placeholder="单元"/></th>
+        <th><input v-model="selectForm.roomNumber" placeholder="房号"/></th>
+        <th><input v-model="selectForm.area" placeholder="面积"/></th>
+        <th><input v-model="selectForm.paidForTime" placeholder="交费至"/></th>
+        <th><input v-model="selectForm.breaks" placeholder="减免金额"/></th>
+        <th><input v-model="selectForm.paidAt51" placeholder="5月1日交费"/></th>
+        <th><input v-model="selectForm.depsit" placeholder="押金"/></th>
+        <th><input v-model="selectForm.depositToCost" placeholder="押金抵费"/></th>
+        <th><input v-model="selectForm.wechatPay" placeholder="微信支付"/></th>
+        <th><input v-model="selectForm.moneyPay" placeholder="现金支付"/></th>
+        <th><input v-model="selectForm.unionPay" placeholder="银联支付"/></th>
+        <th><input v-model="selectForm.refundNumber" placeholder="退款金额"/></th>
+        <th><input v-model="selectForm.col" placeholder="备注1"/></th>
+        <th><input v-model="selectForm.note" placeholder="备注2"/></th>
       </tr>
       <tr>
         <th>姓名</th>
@@ -35,12 +50,43 @@
         <th>备注2</th>
         <th>操作</th>
       </tr>
-      <tr v-for="object in list.data">
-        <td v-for="object1 in object">{{object1}}</td>
+      <tr v-for="(object,i) in list.data">
+        <td>{{object.name}}</td>
+        <td>{{object.buildingNumber}}</td>
+        <td>{{object.unitNumber}}</td>
+        <td>{{object.roomNumber}}</td>
+        <td>{{object.area}}</td>
+        <td>{{object.paidForTime}}</td>
+        <td>{{object.breaks}}</td>
+        <td>{{object.paidAt51}}</td>
+        <td>{{object.depsit}}</td>
+        <td>{{object.depositToCost}}</td>
+        <td>{{object.wechatPay}}</td>
+        <td>{{object.moneyPay}}</td>
+        <td>{{object.unionPay}}</td>
+        <td>{{object.refundNumber}}</td>
+        <td>{{object.col}}</td>
+        <td>{{object.note}}</td>
+        <td><a type="button" :href="'edit.html?id=' + object.id">修改</a></td>
       </tr>
 
       <tr>
-        <td v-for="object2 in statistics">{{object2}}</td>
+        <td>{{statistics.name}}</td>
+        <td>{{statistics.buildingNumber}}</td>
+        <td>{{statistics.unitNumber}}</td>
+        <td>{{statistics.roomNumber}}</td>
+        <td>{{statistics.area}}</td>
+        <td>{{statistics.paidForTime}}</td>
+        <td>{{statistics.breaks}}</td>
+        <td>{{statistics.paidAt51}}</td>
+        <td>{{statistics.depsit}}</td>
+        <td>{{statistics.depositToCost}}</td>
+        <td>{{statistics.wechatPay}}</td>
+        <td>{{statistics.moneyPay}}</td>
+        <td>{{statistics.unionPay}}</td>
+        <td>{{statistics.refundNumber}}</td>
+        <td>{{statistics.col}}</td>
+        <td>{{statistics.note}}</td>
       </tr>
     </table>
   </form>
@@ -52,8 +98,8 @@
 <script>
   const app = new Vue({
     el: '#app',
-    data: {selectForm, page, list, statistics,},
-    methods: {getTable1Page, table1Statistics, urlEncoding,},
+    data: {selectForm, page, list,statistics,},
+    methods: {getTable1Page, table1Statistics,urlEncoding},
     created() {
       this.getTable1Page();
       this.table1Statistics();
@@ -72,7 +118,7 @@
         this.table1Statistics();
       } else this.page.currPage = 0;
     }, deep: true
-  })
+  });
 </script>
 </body>
 </html>

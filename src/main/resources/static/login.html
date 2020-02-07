@@ -30,10 +30,10 @@
     el: '#app',
     data: {username, password, usernameValidation, passwordValidation, message,},
     watch: {username: usernameVF, password: passwordVF,},
-    methods: { loginF,getUrl,},
+    methods: {loginF, getUrl,},
     created() {
-      if(getUrl('message')==='login'){
-        this.message='您未登录,请登陆';
+      if (getUrl('message') === 'login') {
+        this.message = '您未登录,请登陆';
       }
     }
   })
