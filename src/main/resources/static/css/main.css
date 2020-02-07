@@ -2,7 +2,8 @@
   float: left;
   height: 350px;
   margin: 30px;
-  border: 1px black;
+  border: 1px solid black;
+  padding: 15px;
 }
 .floatClear{
   clear: both;

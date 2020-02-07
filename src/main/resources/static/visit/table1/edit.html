@@ -21,32 +21,64 @@
   <br>
   <div class="floatLeft">
     <h4>住户信息</h4>
-    <span>姓名:</span><input v-model="selectForm.name" name="name"/><br>
-    <span>楼号:</span><input v-model="selectForm.buildingNumber" name="buildingNumber"/><br>
-    <span>单元:</span><input v-model="selectForm.unitNumber" name="unitNumber"/><br>
-    <span>房号:</span><input v-model="selectForm.roomNumber" name="roomNumber"/><br>
-    <span>面积:</span><input v-model="selectForm.area" name="area"/><br>
+    <span>姓名:</span><label>
+    <input v-model="selectForm.name" name="name"/>
+  </label><br>
+    <span>楼号:</span><label>
+    <input v-model="selectForm.buildingNumber" name="buildingNumber"/>
+  </label><br>
+    <span>单元:</span><label>
+    <input v-model="selectForm.unitNumber" name="unitNumber"/>
+  </label><br>
+    <span>房号:</span><label>
+    <input v-model="selectForm.roomNumber" name="roomNumber"/>
+  </label><br>
+    <span>面积:</span><label>
+    <input v-model="selectForm.area" name="area"/>
+  </label><br>
   </div>
   <div class="floatLeft">
     <h4>交费信息</h4>
-    <span>交费至:</span><input v-model="selectForm.paidForTime" name="paidForTime"/><br>
-    <span>减免金额:</span><input v-model="selectForm.breaks" name="breaks"/><br>
-    <span>5月1日交费:</span><input v-model="selectForm.paidAt51" name="paidAt51"/><br>
-    <span>押金:</span><input v-model="selectForm.depsit" name="depsit"/><br>
-    <span>押金抵费:</span><input v-model="selectForm.depositToCost" name="depositToCost"/><br>
-    <span>退款金额:</span><input v-model="selectForm.refundNumber" name="refundNumber"/><br>
+    <span>交费至:</span><label>
+    <input v-model="selectForm.paidForTime" name="paidForTime"/>
+  </label><br>
+    <span>减免金额:</span><label>
+    <input v-model="selectForm.breaks" name="breaks"/>
+  </label><br>
+    <span>5月1日交费:</span><label>
+    <input v-model="selectForm.paidAt51" name="paidAt51"/>
+  </label><br>
+    <span>押金:</span><label>
+    <input v-model="selectForm.depsit" name="depsit"/>
+  </label><br>
+    <span>押金抵费:</span><label>
+    <input v-model="selectForm.depositToCost" name="depositToCost"/>
+  </label><br>
+    <span>退款金额:</span><label>
+    <input v-model="selectForm.refundNumber" name="refundNumber"/>
+  </label><br>
   </div>
   <div class="floatLeft">
     <h4>支付信息</h4>
-    <span>微信支付:</span><input v-model="selectForm.wechatPay" name="wechatPay"/><br>
-    <span>现金支付:</span><input v-model="selectForm.moneyPay" name="moneyPay"/><br>
-    <span>银联支付:</span><input v-model="selectForm.unionPay" name="unionPay"/><br>
+    <span>微信支付:</span><label>
+    <input v-model="selectForm.wechatPay" name="wechatPay"/>
+  </label><br>
+    <span>现金支付:</span><label>
+    <input v-model="selectForm.moneyPay" name="moneyPay"/>
+  </label><br>
+    <span>银联支付:</span><label>
+    <input v-model="selectForm.unionPay" name="unionPay"/>
+  </label><br>
   </div>
   <div class="floatLeft">
     <h4>备注</h4>
-    <span>数值备注:</span><input v-model="selectForm.col" name="col"/><br>
+    <span>数值备注:</span><label>
+    <input v-model="selectForm.col" name="col"/>
+  </label><br>
     <span>文字备注:</span>
-    <textarea v-model="selectForm.note" name="note"></textarea>
+    <label>
+      <textarea v-model="selectForm.note" name="note"></textarea>
+    </label>
   </div>
   <div class="floatClear"></div>
   <button @click="table1Submit">保存</button>
@@ -54,7 +86,7 @@
 <script>
   const app = new Vue({
     el: '#app',
-    data: {id, selectForm, message: ''},
+    data: {id, selectForm: table1SelectForm, message: ''},
     methods: {getTable1Data, urlEncoding, table1Submit,},
     created() {
       this.id = getUrl('id');

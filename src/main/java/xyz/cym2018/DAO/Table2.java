@@ -1,11 +1,15 @@
 package xyz.cym2018.DAO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Date;
 
+@JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "refundDate", "refundName", "refundNumber", "depositState", "garbage", "property1", "property2", "paidBy2", "property3", "paidBy3", "numberNote", "textNote"})
 @Entity
 // 彩虹小区
 public class Table2 {
@@ -23,7 +27,7 @@ public class Table2 {
     // 面积
     private Double area;
     // 退款日期
-    private Date refundDate;
+    private String refundDate;
     // 退款姓名
     private String refundName;
     // 退款金额
@@ -35,7 +39,7 @@ public class Table2 {
     // 物业费1
     private Double property1;
     // 交费至
-    private String paidForTime;
+    private Date paidForTime;
     // 物业费2
     private Double property2;
     // 物业费3
@@ -47,7 +51,7 @@ public class Table2 {
     // 数字备注
     private Double numberNote;
     // 文字备注
-    private String textNumber;
+    private String textNote;
 
     @Override
     public String toString() {
@@ -70,7 +74,7 @@ public class Table2 {
                 ", paidBy2='" + paidBy2 + '\'' +
                 ", paidBy3='" + paidBy3 + '\'' +
                 ", numberNote=" + numberNote +
-                ", textNumber='" + textNumber + '\'' +
+                ", textNumber='" + textNote + '\'' +
                 '}';
     }
 
@@ -122,13 +126,6 @@ public class Table2 {
         this.area = area;
     }
 
-    public Date getRefundDate() {
-        return refundDate;
-    }
-
-    public void setRefundDate(Date refundDate) {
-        this.refundDate = refundDate;
-    }
 
     public String getRefundName() {
         return refundName;
@@ -170,11 +167,20 @@ public class Table2 {
         this.property1 = property1;
     }
 
-    public String getPaidForTime() {
+    public String getRefundDate() {
+        return refundDate;
+    }
+
+    public void setRefundDate(String refundDate) {
+        this.refundDate = refundDate;
+    }
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public Date getPaidForTime() {
         return paidForTime;
     }
 
-    public void setPaidForTime(String paidForTime) {
+    public void setPaidForTime(Date paidForTime) {
         this.paidForTime = paidForTime;
     }
 
@@ -218,12 +224,12 @@ public class Table2 {
         this.numberNote = numberNote;
     }
 
-    public String getTextNumber() {
-        return textNumber;
+    public String getTextNote() {
+        return textNote;
     }
 
-    public void setTextNumber(String textNumber) {
-        this.textNumber = textNumber;
+    public void setTextNote(String textNumber) {
+        this.textNote = textNumber;
     }
 
     public void Clear() {
@@ -237,13 +243,22 @@ public class Table2 {
     }
 
     public void Add(Table2 table2) {
-        area += table2.area;
-        refundNumber += table2.refundNumber;
-        garbage += table2.garbage;
-        property1 += table2.property1;
-        property2 += table2.property2;
-        property3 += table2.property3;
-        numberNote += table2.numberNote;
+        area = area + (table2.area == null ? 0 : table2.area);
+        refundNumber = refundNumber + (table2.refundNumber == null ? 0 : table2.refundNumber);
+        garbage = garbage + (table2.garbage == null ? 0 : table2.garbage);
+        property1 = property1 + (table2.property1 == null ? 0 : table2.property1);
+        property2 = property2 + (table2.property2 == null ? 0 : table2.property2);
+        property3 = property3 + (table2.property3 == null ? 0 : table2.property3);
+        numberNote = numberNote + (table2.numberNote == null ? 0 : table2.numberNote);
+    }
 
+    public void Rounded() {
+        area = (double) Math.round(area * 100) / 100;
+        refundNumber = (double) Math.round(refundNumber * 100) / 100;
+        garbage = (double) Math.round(garbage * 100) / 100;
+        property1 = (double) Math.round(property1 * 100) / 100;
+        property2 = (double) Math.round(property2 * 100) / 100;
+        property3 = (double) Math.round(property3 * 100) / 100;
+        numberNote = (double) Math.round(numberNote * 100) / 100;
     }
 }

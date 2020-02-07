@@ -1,4 +1,4 @@
-// login
+// public
 function loginF() {
   axios.get("/public/login", {params: {username: this.username, password: this.password,}}).then(res => {
     if (res.data === true) {
@@ -8,9 +8,9 @@ function loginF() {
       alert('登陆失败:用户名或密码不正确!');
     }
   });
+
 }
 
-// index
 function logout() {
   axios.get('/public/logout').then(res => {
     if (res.data === true) {
@@ -23,17 +23,17 @@ function logout() {
 }
 
 // table1
-function getTable1Page(ret) {
+function getTable1Page() {
   self = this;
   axios.get('/visit/table1/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm)).then(res => {
     this.list.data = res.data.content;
     console.log(res.data.content);
     this.page.totalPage = res.data.totalPages;
     this.page.totalRow = res.data.totalElements;
-  });//.then(table1Statistics());
+  });
 }
 
-function getTable1Data(id) {
+function getTable1Data() {
   self = this;
   axios.get('/visit/table1/query?id=' + this.id).then((res => {
     this.selectForm = res.data;
@@ -48,12 +48,48 @@ function table1Submit() {
   });
 }
 
-function table1Statistics() {
+function getTable1Statistics() {
   self = this;
   axios.get('/visit/table1/statistics?info=' + urlEncoding(this.selectForm)).then(res => {
     this.statistics = res.data;
     this.statistics.name = '合计';
   })
+}
+
+// table2
+
+function getTable2Page() {
+  self = this;
+
+  axios.get('/visit/table2/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm)).then(res => {
+    this.list.data = res.data.content;
+    console.log(res.data.content);
+    this.page.totalPage = res.data.totalPages;
+    this.page.totalRow = res.data.totalElements;
+  });
+}
+
+function table2Submit() {
+  self = this;
+  axios.get('/admin/table2/save?id=' + this.id + urlEncoding(this.selectForm)).then(res => {
+    alert(res.data);
+    window.location.replace("./index.html");
+  });
+}
+
+function getTable2Statistics() {
+  self = this;
+  axios.get('/visit/table2/statistics?info=' + urlEncoding(this.selectForm)).then(res => {
+    this.statistics = res.data;
+    this.statistics.name = '合计';
+  })
+}
+
+function getTable2Data() {
+  self = this;
+  axios.get('/visit/table2/query?id=' + this.id).then((res => {
+    this.selectForm = res.data;
+  }));
 }
 
 // admin
@@ -82,13 +118,14 @@ function adminSubmit() {
   });
 }
 
+
+// 公共
 function getList(url, params, ret) {
   axios.get(url, {params: params}).then(res => {
     ret.data = res.data;
   });
 }
 
-// 公共
 function getPage(url, params, ret) {
   axios.get(url, {params: params,}).then(res => {
     ret.list.data = res.data.content;

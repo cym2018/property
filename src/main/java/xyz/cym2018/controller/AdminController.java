@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.cym2018.DAO.Login;
-import xyz.cym2018.DAO.LoginRepository;
-import xyz.cym2018.DAO.Table1;
-import xyz.cym2018.DAO.Table1Repository;
+import xyz.cym2018.DAO.*;
 
 import java.util.List;
 
@@ -25,15 +22,16 @@ public class AdminController {
     LoginRepository loginRepository;
     @Autowired
     Table1Repository table1Repository;
-
+    @Autowired
+    Table2Repository table2Repository;
     @RequestMapping("/list")
-    public String List() throws JsonProcessingException {
+    public String LoginList() throws JsonProcessingException {
         List<Login> list = loginRepository.findAll();
         return objectMapper.writeValueAsString(list);
     }
 
     @RequestMapping("/save")
-    public Boolean Info(Login login) {
+    public Boolean LoginSave(Login login) {
         try {
             if (login.Valid()) {
                 loginRepository.save(login);
@@ -47,15 +45,25 @@ public class AdminController {
     }
 
     @RequestMapping("/query")
-    public String Query(Login login) throws JsonProcessingException {
+    public String LoginQuery(Login login) throws JsonProcessingException {
         login = loginRepository.getOne(login.getId());
         return objectMapper.writeValueAsString(login);
     }
 
     @RequestMapping("/table1/save")
-    public String Save(Table1 table1) {
+    public String Table1Save(Table1 table1) {
         try {
             table1Repository.save(table1);
+            return "操作成功!";
+        } catch (Exception e) {
+            return "操作失败!\n" + e.toString();
+        }
+    }
+
+    @RequestMapping("/table2/save")
+    public String Table2Save(Table2 table2) {
+        try {
+            table2Repository.save(table2);
             return "操作成功!";
         } catch (Exception e) {
             return "操作失败!\n" + e.toString();

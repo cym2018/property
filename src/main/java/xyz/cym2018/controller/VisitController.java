@@ -5,21 +5,36 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.cym2018.DAO.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/visit")
 public class VisitController {
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        // 使空值为null
+        binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+        // 处理时间格式,允许时间空值
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
     final static Logger logger = LogManager.getLogger(VisitController.class);
     @Autowired
     Table1Repository table1Repository;
@@ -101,6 +116,7 @@ public class VisitController {
             for (Table2 i : list) {
                 table2.Add(i);
             }
+            table2.Rounded();
             return objectMapper.writeValueAsString(table2);
         } catch (Exception e) {
             e.printStackTrace();

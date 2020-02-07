@@ -1,5 +1,6 @@
 package xyz.cym2018.DAO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -32,6 +33,7 @@ public class Table1 {
     // 押金抵费
     private Double depositToCost;
     // 交费至
+    @JsonFormat(pattern="yyyy-MM-dd")
     private String paidForTime;
     // 微信支付
     private Double wechatPay;
