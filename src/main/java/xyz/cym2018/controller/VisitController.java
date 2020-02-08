@@ -79,7 +79,7 @@ public class VisitController {
             for (Table1 i : list) {
                 table1.Add(i);
             }
-            table1.Rounded();
+//            table1.Rounded();
             System.out.println(table1.toString());
             return objectMapper.writeValueAsString(table1);
         } catch (Exception e) {
@@ -116,7 +116,7 @@ public class VisitController {
             for (Table2 i : list) {
                 table2.Add(i);
             }
-            table2.Rounded();
+//            table2.Rounded();
             return objectMapper.writeValueAsString(table2);
         } catch (Exception e) {
             e.printStackTrace();

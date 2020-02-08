@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 
 @JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "breaks", "paidAt51",
         "depsit", "depositToCost", "wechatPay", "moneyPay", "unionPay", "refundNumber", "col", "note"})
@@ -268,15 +269,22 @@ public class Table1 {
     }
 
     public void Add(Table1 table1) {
-        area += table1.area == null ? 0 : table1.area;
-        depositToCost += table1.depositToCost == null ? 0 : table1.depositToCost;
-        wechatPay += table1.wechatPay == null ? 0 : table1.wechatPay;
-        moneyPay += table1.moneyPay == null ? 0 : table1.moneyPay;
-        unionPay += table1.unionPay == null ? 0 : table1.unionPay;
-        refundNumber += table1.refundNumber == null ? 0 : table1.refundNumber;
-        breaks += table1.breaks == null ? 0 : table1.breaks;
-        paidAt51 += table1.paidAt51 == null ? 0 : table1.paidAt51;
-        col += table1.col == null ? 0 : table1.col;
+        area = Add(area, table1.area);
+        depositToCost = Add(depositToCost, table1.depositToCost);
+        wechatPay = Add(wechatPay, table1.wechatPay);
+        moneyPay = Add(moneyPay, table1.moneyPay);
+        unionPay = Add(unionPay, table1.unionPay);
+        refundNumber = Add(refundNumber, table1.refundNumber);
+        breaks = Add(breaks, table1.breaks);
+        paidAt51 = Add(paidAt51, table1.paidAt51);
+        col = Add(col, table1.col);
+    }
+
+    public double Add(Double a, Double b) {
+        if (b != null) {
+            return new BigDecimal(a.toString()).add(new BigDecimal(b.toString())).doubleValue();
+        }
+        return a;
     }
 
     // 清空数据
@@ -290,19 +298,5 @@ public class Table1 {
         breaks = 0.0;
         paidAt51 = 0.0;
         col = 0.0;
-    }
-
-
-    // 四舍五入
-    public void Rounded() {
-        area = (double) Math.round(area * 100) / 100;
-        depositToCost = (double) Math.round(depositToCost * 100) / 100;
-        wechatPay = (double) Math.round(wechatPay * 100) / 100;
-        moneyPay = (double) Math.round(moneyPay * 100) / 100;
-        unionPay = (double) Math.round(unionPay * 100) / 100;
-        refundNumber = (double) Math.round(refundNumber * 100) / 100;
-        breaks = (double) Math.round(breaks * 100) / 100;
-        paidAt51 = (double) Math.round(paidAt51 * 100) / 100;
-        col = (double) Math.round(col * 100) / 100;
     }
 }

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.sql.Date;
 
 @JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "refundDate", "refundName", "refundNumber", "depositState", "garbage", "property1", "property2", "paidBy2", "property3", "paidBy3", "numberNote", "textNote"})
@@ -243,22 +244,19 @@ public class Table2 {
     }
 
     public void Add(Table2 table2) {
-        area += table2.area == null ? 0 : table2.area;
-        refundNumber += table2.refundNumber == null ? 0 : table2.refundNumber;
-        garbage += table2.garbage == null ? 0 : table2.garbage;
-        property1 += table2.property1 == null ? 0 : table2.property1;
-        property2 += table2.property2 == null ? 0 : table2.property2;
-        property3 += table2.property3 == null ? 0 : table2.property3;
-        numberNote += table2.numberNote == null ? 0 : table2.numberNote;
+        area = Add(area, table2.area);
+        refundNumber = Add(refundNumber, table2.refundNumber);
+        garbage = Add(garbage, table2.garbage);
+        property1 = Add(property1, table2.property1);
+        property2 = Add(property2, table2.property2);
+        property3 = Add(property3, table2.property3);
+        numberNote = Add(numberNote, table2.numberNote);
     }
 
-    public void Rounded() {
-        area = (double) Math.round(area * 100) / 100;
-        refundNumber = (double) Math.round(refundNumber * 100) / 100;
-        garbage = (double) Math.round(garbage * 100) / 100;
-        property1 = (double) Math.round(property1 * 100) / 100;
-        property2 = (double) Math.round(property2 * 100) / 100;
-        property3 = (double) Math.round(property3 * 100) / 100;
-        numberNote = (double) Math.round(numberNote * 100) / 100;
+    public double Add(Double a, Double b) {
+        if (b != null) {
+            return new BigDecimal(a.toString()).add(new BigDecimal(b.toString())).doubleValue();
+        }
+        return a;
     }
 }

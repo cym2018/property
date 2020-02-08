@@ -30,7 +30,7 @@ public class PublicController {
     public boolean Login(Login login) {
         try {
             if (login.Valid()) {
-                Optional<Login> ret = loginRepository.findOne(Example.of(login));//.get();
+                Optional<Login> ret = loginRepository.findOne(Example.of(login));
                 if (!ret.isPresent()) {
                     throw new Exception("登陆失败");
                 }
