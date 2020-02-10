@@ -3,84 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <title>列表</title>
-  <link rel="stylesheet" href="../../css/table.css">
   <script src="../../js/vue.js"></script>
   <script src="../../js/axios.js"></script>
   <script src="../../js/my.js"></script>
   <script src="../../js/connect.js"></script>
+  <link rel="stylesheet" href="../../css/table.css">
 </head>
 <body>
 <h1>商基鑫城物业信息管理系统</h1>
 <div id="app">
   <table>
-    <!--筛选表单-->
     <tr>
-      <th><label>
-        <input v-model="selectForm.name" placeholder="姓名"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.buildingNumber" placeholder="楼号"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.unitNumber" placeholder="单元"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.roomNumber" placeholder="房号"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.area" placeholder="面积"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.paidForTime" placeholder="交费至"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.breaks" placeholder="减免金额"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.paidAt51" placeholder="5月1日交费"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.depsit" placeholder="押金"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.depositToCost" placeholder="押金抵费"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.wechatPay" placeholder="微信支付"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.moneyPay" placeholder="现金支付"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.unionPay" placeholder="银联支付"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.refundNumber" placeholder="退款金额"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.property2" placeholder="物业费2"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.property3" placeholder="物业费3"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.col" placeholder="备注1"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.note" placeholder="备注2"/>
-      </label></th>
+      <th><label><input v-model="selectForm.name" placeholder="姓名"/></label></th>
+      <th><label><input v-model="selectForm.buildingNumber" placeholder="楼号"/></label></th>
+      <th><label><input v-model="selectForm.unitNumber" placeholder="单元"/></label></th>
+      <th><label><input v-model="selectForm.roomNumber" placeholder="房号"/></label></th>
+      <th><label><input v-model="selectForm.area" placeholder="面积"/></label></th>
+      <th><label><input v-model="selectForm.paidForTime" placeholder="交费至"/></label></th>
+      <th><label><input v-model="selectForm.breaks" placeholder="减免金额"/></label></th>
+      <th><label><input v-model="selectForm.paidAt51" placeholder="5月1日交费"/></label></th>
+      <th><label><input v-model="selectForm.depsit" placeholder="押金"/></label></th>
+      <th><label><input v-model="selectForm.depositToCost" placeholder="押金抵费"/></label></th>
+      <th><label><input v-model="selectForm.refundNumber" placeholder="退款金额"/></label></th>
+      <th><label><input v-model="selectForm.property1" placeholder="物业费1"/></label></th>
+      <th><label><input v-model="selectForm.property2" placeholder="物业费2"/></label></th>
+      <th><label><input v-model="selectForm.property3" placeholder="物业费3"/></label></th>
+      <th><label><input v-model="selectForm.col" placeholder="数字备注"/></label></th>
+      <th><label><input v-model="selectForm.note" placeholder="文字备注备注"/></label></th>
       <th><a href="edit.html">添加</a></th>
     </tr>
-    <!--显示标题-->
     <tr>
       <th v-for="title in titles">{{title}}</th>
     </tr>
-    <!--显示数据-->
     <tr v-for="(list) in list.data">
       <td v-for="(value,key) in list" v-if="key!=='id'">{{value}}</td>
-      <td><a :href="'edit.html?id='+list.id">修改</a></td>
+      <td><a :href="'edit.html?id='+list.id">
+        <button>修改</button>
+      </a></td>
     </tr>
-    <!--统计数据-->
     <tr>
       <th v-for="object2 in statistics">{{object2}}</th>
     </tr>
@@ -88,39 +48,41 @@
       <th v-for="object3 in counts">{{object3}}</th>
     </tr>
   </table>
-  <button @Click="page.currPage--">上一页</button>
-  第<label>
-  <input v-model="page.showPage">
-</label>页,共{{page.totalPage}}页 ,
+  <button @Click="page.currPage--" class="btn btn-primary">上一页</button>
+  第<label><input v-model="page.showPage"></label>页,共{{page.totalPage}}页 ,
   {{page.firstRow}}-{{page.lastRow}}/{{page.totalRow}}条
-  <button @Click="page.currPage++">下一页</button>
+  <button @Click="page.currPage++" class="btn btn-primary">下一页</button>
 </div>
-<a href="../table1/index.html">商基鑫城物业信息管理系统</a> <a href="../table2/index.html">彩虹小区物业信息管理系统</a>
+<a href="../table2/index.html">彩虹小区物业信息管理系统</a>
 <script>
   const app = new Vue({
     el: '#app',
-    data: {selectForm: table1SelectForm, page, list, statistics, titles: table1Titles,counts},
-    methods: {getTablePage: getTable1Page, getTableStatistics: getTable1Statistics, urlEncoding,
-    getTableCounts:getTable1Counts},
+    data: {selectForm, page, list, statistics, counts, titles: table1Titles},
+    methods: {
+      urlEncoding,
+      getTablePage,
+      getTableStatistics,
+      getTableCounts
+    },
     created() {
-      this.getTablePage();
-      this.getTableStatistics();
-      this.getTableCounts();
+      this.getTablePage(1);
+      this.getTableStatistics(1);
+      this.getTableCounts(1);
     },
   });
   app.$watch('page.showPage', {
     handler() {
-      this.getTablePage();
-      this.getTableStatistics();
-      this.getTableCounts();
+      this.getTablePage(1);
+      this.getTableStatistics(1);
+      this.getTableCounts(1);
     },
   });
   app.$watch('selectForm', {
     handler() {
       if (this.page.currPage === 0) {
-        this.getTablePage();
-        this.getTableStatistics();
-        this.getTableCounts();
+        this.getTablePage(1);
+        this.getTableStatistics(1);
+        this.getTableCounts(1);
       } else this.page.currPage = 0;
     }, deep: true
   })

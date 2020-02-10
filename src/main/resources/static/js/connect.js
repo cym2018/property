@@ -23,81 +23,46 @@ function logout() {
 }
 
 // table1
-function getTable1Page() {
+function getTablePage(tableName) {
   self = this;
-  axios.get('/visit/table1/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm)).then(res => {
+  axios.get('/visit/table' + tableName + '/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm)).then(res => {
     this.list.data = res.data.content;
-    console.log(res.data.content);
     this.page.totalPage = res.data.totalPages;
     this.page.totalRow = res.data.totalElements;
   });
 }
 
-function getTable1Data() {
+function getTableData(tableName) {
   self = this;
-  axios.get('/visit/table1/query?id=' + this.id).then((res => {
+  axios.get('/visit/table' + tableName + '/query?id=' + this.id).then((res => {
     this.selectForm = res.data;
   }));
 }
 
-function table1Submit() {
+function tableSubmit(tableName) {
   self = this;
-  axios.get('/admin/table1/save?id=' + this.id + urlEncoding(this.selectForm)).then(res => {
+  axios.get('/admin/table' + tableName + '/save?id=' + this.id + urlEncoding(this.selectForm)).then(res => {
     alert(res.data);
     window.location.replace("./index.html");
   });
 }
 
-function getTable1Statistics() {
+function getTableStatistics(tableName) {
   self = this;
-  axios.get('/visit/table1/statistics?info=' + urlEncoding(this.selectForm)).then(res => {
+  axios.get('/visit/table' + tableName + '/statistics?info=' + urlEncoding(this.selectForm)).then(res => {
     this.statistics = res.data;
     this.statistics.name = '合计';
   })
 }
 
-function getTable1Counts() {
+function getTableCounts(tableName) {
   self = this;
-  axios.get('/visit/table1/counts?info=' + urlEncoding(this.selectForm)).then(res => {
+  axios.get('/visit/table' + tableName + '/counts?info=' + urlEncoding(this.selectForm)).then(res => {
     this.counts = res.data;
     this.counts.name = '非空行数';
   })
 }
 
-// table2
-
-function getTable2Page() {
-  self = this;
-  axios.get('/visit/table2/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm)).then(res => {
-    this.list.data = res.data.content;
-    console.log(res.data.content);
-    this.page.totalPage = res.data.totalPages;
-    this.page.totalRow = res.data.totalElements;
-  });
-}
-
-function table2Submit() {
-  self = this;
-  axios.get('/admin/table2/save?id=' + this.id + urlEncoding(this.selectForm)).then(res => {
-    alert(res.data);
-    window.location.replace("./index.html");
-  });
-}
-
-function getTable2Statistics() {
-  self = this;
-  axios.get('/visit/table2/statistics?info=' + urlEncoding(this.selectForm)).then(res => {
-    this.statistics = res.data;
-    this.statistics.name = '合计';
-  })
-}
-
-function getTable2Data() {
-  self = this;
-  axios.get('/visit/table2/query?id=' + this.id).then((res => {
-    this.selectForm = res.data;
-  }));
-}
 
 // admin
 function getAdminData(info) {

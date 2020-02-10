@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import java.math.BigDecimal;
 
 @JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "breaks", "paidAt51",
-        "depsit", "depositToCost", "wechatPay", "moneyPay", "unionPay", "refundNumber", "property2", "property3", "col", "note"})
+        "depsit", "depositToCost", "refundNumber", "property1", "property2", "property3", "numberNote", "textNote"})
 @Entity
 //商基鑫城
 public class Table1 {
@@ -36,12 +36,6 @@ public class Table1 {
     // 交费至
     @JsonFormat(pattern = "yyyy-MM-dd")
     private String paidForTime;
-    // 微信支付
-    private Double wechatPay;
-    // 现金支付
-    private Double moneyPay;
-    // 银联支付
-    private Double unionPay;
     // 退款姓名
     @JsonIgnore
     private String refundName;
@@ -62,14 +56,38 @@ public class Table1 {
     // 水费
     @JsonIgnore
     private Double waterRate;
-    // col
-    private Double col;
-    // 备注
-    private String note;
-    // 物业费2
+    private Double property1;
     private Double property2;
-    // 物业费3
     private Double property3;
+
+    public Double getProperty1() {
+        return property1;
+    }
+
+    public void setProperty1(Double property1) {
+        this.property1 = property1;
+    }
+
+    public String getTextNote() {
+        return textNote;
+    }
+
+    public void setTextNote(String textNote) {
+        this.textNote = textNote;
+    }
+
+    public Double getNumberNote() {
+        return numberNote;
+    }
+
+    public void setNumberNote(Double numberNote) {
+        this.numberNote = numberNote;
+    }
+
+    // 文字备注
+    private String textNote;
+    // 数字备注
+    private Double numberNote;
 
     public Integer getId() {
         return id;
@@ -83,17 +101,7 @@ public class Table1 {
         return depositToCost;
     }
 
-    public Double getMoneyPay() {
-        return moneyPay;
-    }
 
-    public Double getWechatPay() {
-        return wechatPay;
-    }
-
-    public Double getUnionPay() {
-        return unionPay;
-    }
 
     public String getName() {
         return name;
@@ -119,9 +127,6 @@ public class Table1 {
         return breaks;
     }
 
-    public Double getCol() {
-        return col;
-    }
 
     public Double getGarbageRate() {
         return garbageRate;
@@ -139,9 +144,6 @@ public class Table1 {
         return depsit;
     }
 
-    public String getNote() {
-        return note;
-    }
 
     public void setGarbageRate(Double garbageRate) {
         this.garbageRate = garbageRate;
@@ -163,9 +165,6 @@ public class Table1 {
         this.depositToCost = depositToCost;
     }
 
-    public void setMoneyPay(Double moneyPay) {
-        this.moneyPay = moneyPay;
-    }
 
     public void setName(String name) {
         if (!"".equals(name))
@@ -191,26 +190,10 @@ public class Table1 {
         this.refundNumber = refundNumber;
     }
 
-    public void setUnionPay(Double unionPay) {
-        this.unionPay = unionPay;
-    }
-
-    public void setWechatPay(Double wechatPay) {
-        this.wechatPay = wechatPay;
-    }
-
-    public void setCol(Double col) {
-        this.col = col;
-    }
 
     public void setDepsit(String depsit) {
         if (!"".equals(depsit))
             this.depsit = depsit;
-    }
-
-    public void setNote(String note) {
-        if (!"".equals(note))
-            this.note = note;
     }
 
     public void setPaidAt51(Double paidAt51) {
@@ -266,13 +249,11 @@ public class Table1 {
     public void Clear() {
         area = 0.0;
         depositToCost = 0.0;
-        wechatPay = 0.0;
-        moneyPay = 0.0;
-        unionPay = 0.0;
         refundNumber = 0.0;
         breaks = 0.0;
         paidAt51 = 0.0;
-        col = 0.0;
+        numberNote = 0.0;
+        property1 = 0.0;
         property2 = 0.0;
         property3 = 0.0;
     }
@@ -288,9 +269,6 @@ public class Table1 {
                 ", area=" + area +
                 ", depositToCost=" + depositToCost +
                 ", paidForTime='" + paidForTime + '\'' +
-                ", wechatPay=" + wechatPay +
-                ", moneyPay=" + moneyPay +
-                ", unionPay=" + unionPay +
                 ", refundName='" + refundName + '\'' +
                 ", refundAccount='" + refundAccount + '\'' +
                 ", refundNumber=" + refundNumber +
@@ -299,25 +277,24 @@ public class Table1 {
                 ", depsit='" + depsit + '\'' +
                 ", garbageRate=" + garbageRate +
                 ", waterRate=" + waterRate +
-                ", col=" + col +
-                ", note='" + note + '\'' +
+                ", property1=" + property1 +
                 ", property2=" + property2 +
                 ", property3=" + property3 +
+                ", textNote='" + textNote + '\'' +
+                ", numberNote=" + numberNote +
                 '}';
     }
 
     public void Add(Table1 table1) {
         area = Add(area, table1.area);
         depositToCost = Add(depositToCost, table1.depositToCost);
-        wechatPay = Add(wechatPay, table1.wechatPay);
-        moneyPay = Add(moneyPay, table1.moneyPay);
-        unionPay = Add(unionPay, table1.unionPay);
         refundNumber = Add(refundNumber, table1.refundNumber);
         breaks = Add(breaks, table1.breaks);
         paidAt51 = Add(paidAt51, table1.paidAt51);
-        col = Add(col, table1.col);
+        property1 = Add(property1, table1.property1);
         property2 = Add(property2, table1.property2);
         property3 = Add(property3, table1.property3);
+        numberNote = Add(numberNote, table1.numberNote);
     }
 
     public double Add(Double a, Double b) {

@@ -13,76 +13,41 @@
 <h1>彩虹小区物业信息管理系统</h1>
 <div id="app">
   <table>
-    <!--筛选表单-->
+    <!--筛选-->
     <tr>
-      <th><label>
-        <input v-model="selectForm.name" placeholder="姓名"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.buildingNumber" placeholder="楼号"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.unitNumber" placeholder="单元"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.roomNumber" placeholder="房号"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.area" placeholder="面积"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.paidForTime" placeholder="交费至"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.refundDate" placeholder="退款日期"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.refundName" placeholder="退款姓名"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.refundNumber" placeholder="退款金额"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.depositState" placeholder="退款状态"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.garbage" placeholder="垃圾清运费"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.property1" placeholder="物业费1"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.property2" placeholder="物业费2"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.paidBy2" placeholder="交费方式2"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.property3" placeholder="物业费3"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.paidBy3" placeholder="交费方式3"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.numberNote" placeholder="数字备注"/>
-      </label></th>
-      <th><label>
-        <input v-model="selectForm.textNote" placeholder="文字备注"/>
-      </label></th>
+      <th><label><input v-model="selectForm.name" placeholder="姓名"/></label></th>
+      <th><label><input v-model="selectForm.buildingNumber" placeholder="楼号"/></label></th>
+      <th><label><input v-model="selectForm.unitNumber" placeholder="单元"/></label></th>
+      <th><label><input v-model="selectForm.roomNumber" placeholder="房号"/></label></th>
+      <th><label><input v-model="selectForm.area" placeholder="面积"/></label></th>
+      <th><label><input v-model="selectForm.paidForTime" placeholder="交费至"/></label></th>
+      <th><label><input v-model="selectForm.refundDate" placeholder="退款日期"/></label></th>
+      <th><label><input v-model="selectForm.refundName" placeholder="退款姓名"/></label></th>
+      <th><label><input v-model="selectForm.refundNumber" placeholder="退款金额"/></label></th>
+      <th><label><input v-model="selectForm.depositState" placeholder="退款状态"/></label></th>
+      <th><label><input v-model="selectForm.garbage" placeholder="垃圾清运费"/></label></th>
+      <th><label><input v-model="selectForm.property1" placeholder="物业费1"/></label></th>
+      <th><label><input v-model="selectForm.property2" placeholder="物业费2"/></label></th>
+      <th><label><input v-model="selectForm.property3" placeholder="物业费3"/></label></th>
+      <th><label><input v-model="selectForm.numberNote" placeholder="数字备注"/></label></th>
+      <th><label><input v-model="selectForm.textNote" placeholder="文字备注"/></label></th>
       <th><a href="edit.html">添加</a></th>
     </tr>
-    <!--显示标题-->
+    <!--标题-->
     <tr>
       <th v-for="title in titles">{{title}}</th>
     </tr>
-    <!--显示数据-->
+    <!--数据-->
     <tr v-for="(list) in list.data">
       <td v-for="(value,key) in list" v-if="key!=='id'">{{value}}</td>
       <td><a :href="'edit.html?id='+list.id">修改</a></td>
     </tr>
-    <!--统计数据-->
+    <!--统计-->
     <tr>
-      <td v-for="object2 in statistics">{{object2}}</td>
+      <th v-for="object2 in statistics">{{object2}}</th>
+    </tr>
+    <tr>
+      <th v-for="object3 in counts">{{object3}}</th>
     </tr>
   </table>
   <button @Click="page.currPage--">上一页</button>
@@ -96,24 +61,27 @@
 <script>
   const app = new Vue({
     el: '#app',
-    data: {selectForm: table2SelectForm, page, list, statistics, titles: table2Titles},
-    methods: {getTablePage: getTable2Page, getTableStatistics: getTable2Statistics, urlEncoding,},
+    data: {selectForm, page, list, statistics, titles: table2Titles,counts},
+    methods: {getTablePage, getTableStatistics,getTableCounts},
     created() {
-      this.getTablePage();
-      this.getTableStatistics();
+      this.getTablePage(2);
+      this.getTableStatistics(2);
+      this.getTableCounts(2);
     },
   });
   app.$watch('page.showPage', {
     handler() {
-      this.getTablePage();
-      this.getTableStatistics();
+      this.getTablePage(2);
+      this.getTableStatistics(2);
+      this.getTableCounts(2);
     },
   });
   app.$watch('selectForm', {
     handler() {
       if (this.page.currPage === 0) {
-        this.getTablePage();
-        this.getTableStatistics();
+        this.getTablePage(2);
+        this.getTableStatistics(2);
+        this.getTableCounts(2);
       } else this.page.currPage = 0;
     }, deep: true
   })

@@ -57,6 +57,39 @@ public class VisitController extends template {
         }
     }
 
+    @RequestMapping("/table1/counts")
+    public String Table1Count(Table1 table1) throws JsonProcessingException {
+        int countPaidForTime = 0, countBreaks = 0, countPaidAt51 = 0, countDepsit = 0, countDepositToCost = 0, countRefundNumber = 0,
+                countProperty1 = 0, countProperty2 = 0, countProperty3 = 0, countNumberNote = 0, countArea = 0, countTextNote = 0;
+        Table1 ret = new Table1();
+        List<Table1> list = table1Repository.findAll(Example.of(table1));
+        for (Table1 i : list) {
+//            if (i.getArea() != null) countArea++;
+//            if (i.getPaidForTime() != null) countPaidForTime++;
+            if (i.getBreaks() != null) countBreaks++;
+            if (i.getPaidAt51() != null) countPaidAt51++;
+            if (i.getDepsit() != null) countDepsit++;
+            if (i.getDepositToCost() != null) countDepositToCost++;
+            if (i.getRefundNumber() != null) countRefundNumber++;
+            if (i.getProperty1() != null) countProperty1++;
+            if (i.getProperty2() != null) countProperty2++;
+            if (i.getProperty3() != null) countProperty3++;
+            if (i.getNumberNote() != null) countNumberNote++;
+            if (i.getTextNote() != null) countTextNote++;
+        }
+        ret.setBreaks((double) countBreaks);
+        ret.setPaidAt51((double) countPaidAt51);
+        ret.setDepsit(String.valueOf(countDepsit));
+        ret.setDepositToCost((double) countDepositToCost);
+        ret.setRefundNumber((double) countRefundNumber);
+        ret.setProperty1((double) countProperty1);
+        ret.setProperty2((double) countProperty2);
+        ret.setProperty3((double) countProperty3);
+        ret.setNumberNote((double) countNumberNote);
+        ret.setTextNote(String.valueOf(countTextNote));
+        return objectMapper.writeValueAsString(ret);
+    }
+
     @RequestMapping("/table2/query")
     public String Table2Query(Table2 table2, Integer pageSize, Integer pageNumber) {
         try {
@@ -93,33 +126,29 @@ public class VisitController extends template {
         }
     }
 
-    @RequestMapping("/table1/counts")
-    public String Table1Count(Table1 table1) throws JsonProcessingException {
-        Integer countPaidForTime = 0, countBreaks = 0, countPaidAt51 = 0, countDepsit = 0, countDepositToCost = 0;
-        Table1 ret = new Table1();
-        List<Table1> list = table1Repository.findAll(Example.of(table1));
-        for (Table1 i : list) {
-            if (i.getPaidForTime() != null) {
-                countPaidForTime++;
-            }
-            if (i.getBreaks() != null) {
-                countBreaks++;
-            }
-            if (i.getPaidAt51() != null) {
-                countPaidAt51++;
-            }
-            if (i.getDepsit() != null) {
-                countDepsit++;
-            }
-            if (i.getDepositToCost() != null) {
-                countDepositToCost++;
-            }
+    @RequestMapping("/table2/counts")
+    public String Table2Count(Table2 table2) throws JsonProcessingException {
+        int countRefundNumber = 0, countProperty1 = 0, countProperty2 = 0, countProperty3 = 0, countNumberNote = 0, countArea = 0, countGarbage = 0,countTextNote=0,countDepositState=0;
+        Table2 ret = new Table2();
+        List<Table2> list = table2Repository.findAll(Example.of(table2));
+        for (Table2 i : list) {
+            if (i.getRefundNumber() != null) countRefundNumber++;
+            if (i.getGarbage() != null) countGarbage++;
+            if (i.getProperty1() != null) countProperty1++;
+            if (i.getProperty2() != null) countProperty2++;
+            if (i.getProperty3() != null) countProperty3++;
+            if (i.getNumberNote() != null) countNumberNote++;
+            if(i.getTextNote()!=null)countTextNote++;
+            if(i.getDepositState()!=null)countDepositState++;
         }
-        ret.setPaidForTime(countPaidForTime.toString());
-        ret.setBreaks(countBreaks.doubleValue());
-        ret.setPaidAt51(countPaidAt51.doubleValue());
-        ret.setDepsit(countDepsit.toString());
-        ret.setDepositToCost(countDepositToCost.doubleValue());
+        ret.setRefundNumber((double) countRefundNumber);
+        ret.setGarbage((double) countGarbage);
+        ret.setProperty1((double) countProperty1);
+        ret.setProperty2((double) countProperty2);
+        ret.setProperty3((double) countProperty3);
+        ret.setNumberNote((double) countNumberNote);
+        ret.setTextNote(String.valueOf(countTextNote));
+        ret.setDepositState(String.valueOf(countDepositState));
         return objectMapper.writeValueAsString(ret);
     }
 }

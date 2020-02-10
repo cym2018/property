@@ -69,7 +69,7 @@ public class Table2 {
                 ", property2=" + property2 +
                 ", property3=" + property3 +
                 ", numberNote=" + numberNote +
-                ", textNumber='" + textNote + '\'' +
+                ", textNote='" + textNote + '\'' +
                 '}';
     }
 

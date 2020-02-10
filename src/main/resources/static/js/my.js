@@ -16,10 +16,8 @@ function StringTest(input) {
 }
 
 // 通用
-const statistics = {};
-const counts = {};
+const statistics = {},counts = {};const selectForm = {};const list = {"data": []};
 let id;
-const list = {"data": []};
 const page = {
   "_currPage": 0,
   "_showPage": 1,
@@ -52,52 +50,17 @@ const page = {
   },
 };
 //table1
-const table1SelectForm = {
-  "name": '', "buildingNumber": "", "unitNumber": "", "roomNumber": "", "area": "", "depositToCost": "",
-  "paidForTime": "", "wechatPay": "", "moneyPay": "", "unionPay": "", "refundName": "", "refundAccount": "",
-  "refundNumber": "", "breaks": "", "paidAt51": "", "depsit": "", "garbageRate": "", "waterRate": "",
-  "col": "", "note": "", "property2": "", "property3": ""
-};
+
 
 const table1Titles = ['姓名', '楼号', '单元', '房号', '面积', '交费至', '减免金额', '5月1日交费', '押金', '押金抵费',
-  '微信支付', '现金支付', '银联支付', '退款金额', '物业费2', '物业费3', '数值备注', '文字备注', '操作'];
+  '退款金额','物业费1', '物业费2', '物业费3', '数值备注', '文字备注', '操作'];
 
 // table2
 const table2Titles = ['姓名', '楼号', '单元号', '房间号', '面积', '交费至', '退款日期', '退款姓名', '退款金额', '退款状态',
-  '垃圾清运费', '物业费1', '物业费2', '交费方式2', '物业费3', '交费方式3', '数字备注', '文字备注', '操作'];
-const table2SelectForm = {
-  "id": '', "name": '', "buildingNumber": '', "unitNumber": '', "roomNumber": '', "area": '', "refundDate": '',
-  "refundName": '', "refundNumber": '', "depositState": '', "garbage": '', "property1": '', "paidForTime": '',
-  "property2": '', "property3": '', "paidBy2": '', "paidBy3": '', "numberNote": '', "textNote": '',
-};
+  '垃圾清运费', '物业费1', '物业费2', '物业费3', '数字备注', '文字备注', '操作'];
 
 // admin
 let title = '', info = {id: '', username: '', password: '',};
-
-
-// 通用
-
-// 实体对象
-const userInfo = {
-  "id": '', "name": '', "buildingNumber": '', "unitNumber": '', "roomNumber": '', "paidForTime": '', "area": '',
-  "textNote1": '', "textNote2": '', "numberNote1": '', "numberNote2": '',
-  clear() {
-    this.buildingNumber = '';
-    this.unitNumber = '';
-    this.roomNumber = '';
-  },
-};
-const timeScope = {
-  "startDate": '', "endDate": '',
-  clear() {
-    this.startDate = '';
-    this.endDate = '';
-  }
-};
-const recodeInfo = {"id": 0, "title": '', "date": '', "paidWay": '', "amount": '', "note": '',};
-
-
-// 函数
 
 // 获取url中的值
 function getUrl(key) {
