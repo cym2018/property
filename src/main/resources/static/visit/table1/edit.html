@@ -40,44 +40,52 @@
   <div class="floatLeft">
     <h4>交费信息</h4>
     <span>交费至:</span><label>
-    <input v-model="selectForm.paidForTime" name="paidForTime"/>
+    <input v-model="selectForm.paidForTime"/>
   </label><br>
     <span>减免金额:</span><label>
-    <input v-model="selectForm.breaks" name="breaks"/>
+    <input v-model="selectForm.breaks"/>
   </label><br>
     <span>5月1日交费:</span><label>
-    <input v-model="selectForm.paidAt51" name="paidAt51"/>
+    <input v-model="selectForm.paidAt51"/>
   </label><br>
     <span>押金:</span><label>
-    <input v-model="selectForm.depsit" name="depsit"/>
+    <input v-model="selectForm.depsit"/>
   </label><br>
     <span>押金抵费:</span><label>
-    <input v-model="selectForm.depositToCost" name="depositToCost"/>
+    <input v-model="selectForm.depositToCost"/>
   </label><br>
     <span>退款金额:</span><label>
-    <input v-model="selectForm.refundNumber" name="refundNumber"/>
+    <input v-model="selectForm.refundNumber"/>
   </label><br>
   </div>
   <div class="floatLeft">
     <h4>支付信息</h4>
     <span>微信支付:</span><label>
-    <input v-model="selectForm.wechatPay" name="wechatPay"/>
+    <input v-model="selectForm.wechatPay"/>
   </label><br>
     <span>现金支付:</span><label>
-    <input v-model="selectForm.moneyPay" name="moneyPay"/>
+    <input v-model="selectForm.moneyPay"/>
+  </label><br>
+    </label><br>
+    <span>物业费2:</span><label>
+    <input v-model="selectForm.property2"/>
+  </label><br>
+    </label><br>
+    <span>物业费3:</span><label>
+    <input v-model="selectForm.property3"/>
   </label><br>
     <span>银联支付:</span><label>
-    <input v-model="selectForm.unionPay" name="unionPay"/>
+    <input v-model="selectForm.unionPay"/>
   </label><br>
   </div>
   <div class="floatLeft">
     <h4>备注</h4>
     <span>数值备注:</span><label>
-    <input v-model="selectForm.col" name="col"/>
+    <input v-model="selectForm.col"/>
   </label><br>
     <span>文字备注:</span>
     <label>
-      <textarea v-model="selectForm.note" name="note"></textarea>
+      <textarea v-model="selectForm.note"></textarea>
     </label>
   </div>
   <div class="floatClear"></div>

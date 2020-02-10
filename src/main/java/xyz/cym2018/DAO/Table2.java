@@ -45,10 +45,6 @@ public class Table2 {
     private Double property2;
     // 物业费3
     private Double property3;
-    // 交费方式2
-    private String paidBy2;
-    // 交费方式3
-    private String paidBy3;
     // 数字备注
     private Double numberNote;
     // 文字备注
@@ -72,8 +68,6 @@ public class Table2 {
                 ", paidForTime='" + paidForTime + '\'' +
                 ", property2=" + property2 +
                 ", property3=" + property3 +
-                ", paidBy2='" + paidBy2 + '\'' +
-                ", paidBy3='" + paidBy3 + '\'' +
                 ", numberNote=" + numberNote +
                 ", textNumber='" + textNote + '\'' +
                 '}';
@@ -199,22 +193,6 @@ public class Table2 {
 
     public void setProperty3(Double property3) {
         this.property3 = property3;
-    }
-
-    public String getPaidBy2() {
-        return paidBy2;
-    }
-
-    public void setPaidBy2(String paidBy2) {
-        this.paidBy2 = paidBy2;
-    }
-
-    public String getPaidBy3() {
-        return paidBy3;
-    }
-
-    public void setPaidBy3(String paidBy3) {
-        this.paidBy3 = paidBy3;
     }
 
     public Double getNumberNote() {

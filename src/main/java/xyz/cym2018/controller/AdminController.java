@@ -1,29 +1,18 @@
 package xyz.cym2018.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import xyz.cym2018.DAO.*;
+import xyz.cym2018.DAO.Login;
+import xyz.cym2018.DAO.Table1;
+import xyz.cym2018.DAO.Table2;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminController {
-    final static Logger logger = LogManager.getLogger(AdminController.class);
-    @Autowired
-    ObjectMapper objectMapper;
-    @Autowired
-    LoginRepository loginRepository;
-    @Autowired
-    Table1Repository table1Repository;
-    @Autowired
-    Table2Repository table2Repository;
+public class AdminController extends template {
     @RequestMapping("/list")
     public String LoginList() throws JsonProcessingException {
         List<Login> list = loginRepository.findAll();
@@ -33,10 +22,8 @@ public class AdminController {
     @RequestMapping("/save")
     public Boolean LoginSave(Login login) {
         try {
-            if (login.Valid()) {
                 loginRepository.save(login);
                 return true;
-            }
         } catch (DataIntegrityViolationException ignored) {
         } catch (Exception e) {
             e.printStackTrace();

@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import java.math.BigDecimal;
 
 @JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "breaks", "paidAt51",
-        "depsit", "depositToCost", "wechatPay", "moneyPay", "unionPay", "refundNumber", "col", "note"})
+        "depsit", "depositToCost", "wechatPay", "moneyPay", "unionPay", "refundNumber", "property2", "property3", "col", "note"})
 @Entity
 //商基鑫城
 public class Table1 {
@@ -66,6 +66,10 @@ public class Table1 {
     private Double col;
     // 备注
     private String note;
+    // 物业费2
+    private Double property2;
+    // 物业费3
+    private Double property3;
 
     public Integer getId() {
         return id;
@@ -241,9 +245,41 @@ public class Table1 {
         this.buildingNumber = buildingNumber;
     }
 
+    public Double getProperty2() {
+        return property2;
+    }
+
+    public Double getProperty3() {
+        return property3;
+    }
+
+    public void setProperty2(Double property2) {
+        this.property2 = property2;
+    }
+
+    public void setProperty3(Double property3) {
+        this.property3 = property3;
+    }
+
+
+    // 清空数据
+    public void Clear() {
+        area = 0.0;
+        depositToCost = 0.0;
+        wechatPay = 0.0;
+        moneyPay = 0.0;
+        unionPay = 0.0;
+        refundNumber = 0.0;
+        breaks = 0.0;
+        paidAt51 = 0.0;
+        col = 0.0;
+        property2 = 0.0;
+        property3 = 0.0;
+    }
+
     @Override
     public String toString() {
-        return "Owner{" +
+        return "Table1{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", buildingNumber=" + buildingNumber +
@@ -265,6 +301,8 @@ public class Table1 {
                 ", waterRate=" + waterRate +
                 ", col=" + col +
                 ", note='" + note + '\'' +
+                ", property2=" + property2 +
+                ", property3=" + property3 +
                 '}';
     }
 
@@ -278,6 +316,8 @@ public class Table1 {
         breaks = Add(breaks, table1.breaks);
         paidAt51 = Add(paidAt51, table1.paidAt51);
         col = Add(col, table1.col);
+        property2 = Add(property2, table1.property2);
+        property3 = Add(property3, table1.property3);
     }
 
     public double Add(Double a, Double b) {
@@ -285,18 +325,5 @@ public class Table1 {
             return new BigDecimal(a.toString()).add(new BigDecimal(b.toString())).doubleValue();
         }
         return a;
-    }
-
-    // 清空数据
-    public void Clear() {
-        area = 0.0;
-        depositToCost = 0.0;
-        wechatPay = 0.0;
-        moneyPay = 0.0;
-        unionPay = 0.0;
-        refundNumber = 0.0;
-        breaks = 0.0;
-        paidAt51 = 0.0;
-        col = 0.0;
     }
 }

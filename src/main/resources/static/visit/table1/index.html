@@ -10,6 +10,7 @@
   <script src="../../js/connect.js"></script>
 </head>
 <body>
+<h1>商基鑫城物业信息管理系统</h1>
 <div id="app">
   <table>
     <!--筛选表单-->
@@ -57,6 +58,12 @@
         <input v-model="selectForm.refundNumber" placeholder="退款金额"/>
       </label></th>
       <th><label>
+        <input v-model="selectForm.property2" placeholder="物业费2"/>
+      </label></th>
+      <th><label>
+        <input v-model="selectForm.property3" placeholder="物业费3"/>
+      </label></th>
+      <th><label>
         <input v-model="selectForm.col" placeholder="备注1"/>
       </label></th>
       <th><label>
@@ -75,7 +82,10 @@
     </tr>
     <!--统计数据-->
     <tr>
-      <td v-for="object2 in statistics">{{object2}}</td>
+      <th v-for="object2 in statistics">{{object2}}</th>
+    </tr>
+    <tr>
+      <th v-for="object3 in counts">{{object3}}</th>
     </tr>
   </table>
   <button @Click="page.currPage--">上一页</button>
@@ -89,17 +99,20 @@
 <script>
   const app = new Vue({
     el: '#app',
-    data: {selectForm: table1SelectForm, page, list, statistics, titles: table1Titles},
-    methods: {getTablePage: getTable1Page, getTableStatistics: getTable1Statistics, urlEncoding,},
+    data: {selectForm: table1SelectForm, page, list, statistics, titles: table1Titles,counts},
+    methods: {getTablePage: getTable1Page, getTableStatistics: getTable1Statistics, urlEncoding,
+    getTableCounts:getTable1Counts},
     created() {
       this.getTablePage();
       this.getTableStatistics();
+      this.getTableCounts();
     },
   });
   app.$watch('page.showPage', {
     handler() {
       this.getTablePage();
       this.getTableStatistics();
+      this.getTableCounts();
     },
   });
   app.$watch('selectForm', {
@@ -107,6 +120,7 @@
       if (this.page.currPage === 0) {
         this.getTablePage();
         this.getTableStatistics();
+        this.getTableCounts();
       } else this.page.currPage = 0;
     }, deep: true
   })

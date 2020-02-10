@@ -1,12 +1,9 @@
 package xyz.cym2018.DAO;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "login", uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
-@JsonIgnoreProperties(value = {"hibernateLazyInitializer"})
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = "username")})
 public class Login {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,11 +17,11 @@ public class Login {
     }
 
     public String getPassword() {
-        return password;
+        return password == null ? "" : password;
     }
 
     public String getUsername() {
-        return username;
+        return username == null ? "" : username;
     }
 
     public Integer getPermissions() {
@@ -51,13 +48,9 @@ public class Login {
     public String toString() {
         return "Login{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", username='" + getUsername() + '\'' +
+                ", password='" + getPassword() + '\'' +
                 ", permissions=" + permissions +
                 '}';
-    }
-
-    public boolean Valid() {
-        return username != null && password != null;
     }
 }

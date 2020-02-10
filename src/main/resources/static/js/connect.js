@@ -56,11 +56,18 @@ function getTable1Statistics() {
   })
 }
 
+function getTable1Counts() {
+  self = this;
+  axios.get('/visit/table1/counts?info=' + urlEncoding(this.selectForm)).then(res => {
+    this.counts = res.data;
+    this.counts.name = '非空行数';
+  })
+}
+
 // table2
 
 function getTable2Page() {
   self = this;
-
   axios.get('/visit/table2/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm)).then(res => {
     this.list.data = res.data.content;
     console.log(res.data.content);

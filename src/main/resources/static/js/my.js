@@ -17,6 +17,7 @@ function StringTest(input) {
 
 // 通用
 const statistics = {};
+const counts = {};
 let id;
 const list = {"data": []};
 const page = {
@@ -55,11 +56,11 @@ const table1SelectForm = {
   "name": '', "buildingNumber": "", "unitNumber": "", "roomNumber": "", "area": "", "depositToCost": "",
   "paidForTime": "", "wechatPay": "", "moneyPay": "", "unionPay": "", "refundName": "", "refundAccount": "",
   "refundNumber": "", "breaks": "", "paidAt51": "", "depsit": "", "garbageRate": "", "waterRate": "",
-  "col": "", "note": "",
+  "col": "", "note": "", "property2": "", "property3": ""
 };
 
 const table1Titles = ['姓名', '楼号', '单元', '房号', '面积', '交费至', '减免金额', '5月1日交费', '押金', '押金抵费',
-  '微信支付', '现金支付', '银联支付', '退款金额', '备注1', '备注2', '操作'];
+  '微信支付', '现金支付', '银联支付', '退款金额', '物业费2', '物业费3', '数值备注', '文字备注', '操作'];
 
 // table2
 const table2Titles = ['姓名', '楼号', '单元号', '房间号', '面积', '交费至', '退款日期', '退款姓名', '退款金额', '退款状态',
@@ -125,7 +126,9 @@ function getVariable(vars, key) {
 function urlEncoding(object) {
   let ret = '';
   for (let i in object) {
-    ret = ret + '&' + i + '=' + ((eval("object." + i) === null || eval("object." + i) === undefined) ? '' : eval("object." + i));
+    if (eval('object.' + i) !== null && eval('object.' + i) !== undefined && eval('object.' + i) !== '') {
+      ret = ret + '&' + i + '=' + eval("object." + i);
+    }
   }
   return ret;
 }
