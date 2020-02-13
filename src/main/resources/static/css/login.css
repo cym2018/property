@@ -15,12 +15,12 @@ html {
 
 }
 
-.loginForm>h1 {
+.loginForm h1 {
     color: #000080;
     font-size: 40px;
 }
 
-.loginForm>input {
+.loginForm input {
     width: 300px;
     height: 40px;
     padding: 10px 20px;
@@ -29,7 +29,7 @@ html {
     border-radius: 5px;
     border: 1px #f0f0eb;
 }
-.loginForm>input:hover{
+.loginForm input:hover{
     width: 300px;
     height: 40px;
     padding: 10px 20px;
@@ -38,13 +38,8 @@ html {
     border-color: #000000;
     border-radius: 5px;
 }
-.loginForm>.validation {
-    color: red;
-    text-align: left;
-    padding: 0 30px;
-}
 
-.loginForm>button {
+.loginForm button {
     width: 150px;
     height: 50px;
     border: white;

@@ -15,7 +15,6 @@ public class PublicController extends template {
 
     final static Logger logger = LogManager.getLogger(AdminController.class);
 
-    // 登陆
     @RequestMapping("/login")
     public boolean Login(Login login) {
         try {
@@ -41,7 +40,7 @@ public class PublicController extends template {
 
     @RequestMapping("/permissionError")
     public String PermissionError() {
-        return "操作失败:权限不足!";
+        return "操作失败,权限不足!";
     }
 
     @RequestMapping("/refresh")

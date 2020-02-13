@@ -57,8 +57,10 @@ function Submit(url) {
   axios.get(url).then(res => {
     if (res.data === true) {
       alert('操作成功');
-    } else {
+    } else if(res.data===false) {
       alert('操作失败');
+    }else {
+      alert(res.data)
     }
     window.location.replace('./index.html');
   });

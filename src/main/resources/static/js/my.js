@@ -1,23 +1,9 @@
 'use strict';
 // login
-let password = '', username = '', usernameValidation, passwordValidation, message = '';
-
-function usernameVF(newVal) {
-  this.usernameValidation = StringTest(newVal);
-}
-
-function passwordVF(newVal) {
-  this.passwordValidation = StringTest(newVal);
-}
-
-function StringTest(input) {
-  // noinspection JSConstructorReturnsPrimitive
-  return (/^[A-Za-z0-9]{1,15}$/.test(input)) ? "√" : "×请输入1-15位数字或字母";
-}
+let password = '', username = '', message = '',id='';
 
 // 通用
 const statistics = {},counts = {};const selectForm = {};const list = {"data": []};
-let id;
 const page = {
   "_currPage": 0,
   "_showPage": 1,

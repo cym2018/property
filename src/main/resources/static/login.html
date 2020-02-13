@@ -25,7 +25,6 @@
   let app = new Vue({
     el: '#app',
     data: {username, password, usernameValidation, passwordValidation, message,},
-    watch: {username: usernameVF, password: passwordVF,},
     methods: {login, getUrl,},
     created() {
       if (getUrl('message') === 'login') {
