@@ -32,14 +32,18 @@
       </td>
     </tr>
   </table>
+  <button @Click="page.currPage--" class="btn btn-primary">上一页</button>
+  第<label><input v-model="page.showPage"></label>页,共{{page.totalPage}}页 ,
+  {{page.firstRow}}-{{page.lastRow}}/{{page.totalRow}}条
+  <button @Click="page.currPage++" class="btn btn-primary">下一页</button>
 </div>
 <script>
   let app = new Vue({
     el: '#app',
-    data: {list,},
-    methods: {getList,},
+    data: {list,page,},
+    methods: {getPage,},
     created() {
-      this.getList('./list', {}, this.list);
+      this.getPage('/admin/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage);
     }
   });
 </script>

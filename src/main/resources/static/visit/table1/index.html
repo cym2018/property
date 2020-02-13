@@ -29,7 +29,7 @@
       <th><label><input v-model="selectForm.property2" placeholder="物业费2"/></label></th>
       <th><label><input v-model="selectForm.property3" placeholder="物业费3"/></label></th>
       <th><label><input v-model="selectForm.col" placeholder="数字备注"/></label></th>
-      <th><label><input v-model="selectForm.note" placeholder="文字备注备注"/></label></th>
+      <th><label><input v-model="selectForm.note" placeholder="文字备注"/></label></th>
       <th><a href="edit.html">添加</a></th>
     </tr>
     <tr>
@@ -60,19 +60,19 @@
     data: {selectForm, page, list, statistics, counts, titles: table1Titles},
     methods: {
       urlEncoding,
-      getTablePage,
+      getPage,
       getTableStatistics,
       getTableCounts
     },
     created() {
-      this.getTablePage(1);
+      this.getPage('/visit/table1/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
       this.getTableStatistics(1);
       this.getTableCounts(1);
     },
   });
   app.$watch('page.showPage', {
     handler() {
-      this.getTablePage(1);
+      this.getPage('/visit/table1/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
       this.getTableStatistics(1);
       this.getTableCounts(1);
     },
@@ -80,7 +80,7 @@
   app.$watch('selectForm', {
     handler() {
       if (this.page.currPage === 0) {
-        this.getTablePage(1);
+        this.getPage('/visit/table1/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
         this.getTableStatistics(1);
         this.getTableCounts(1);
       } else this.page.currPage = 0;

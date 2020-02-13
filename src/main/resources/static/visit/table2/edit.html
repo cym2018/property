@@ -49,18 +49,18 @@
     <label><span>文字备注:</span><textarea v-model="selectForm.textNote"></textarea></label>
   </div>
   <div class="floatClear"></div>
-  <button @click="tableSubmit(2)">保存</button>
+  <button @click="Submit('/admin/table2/save?id=' + id + urlEncoding(selectForm))">保存</button>
 </div>
 <script>
   const app = new Vue({
     el: '#app',
     data: {id, selectForm, message: ''},
-    methods: {getTableData, urlEncoding, tableSubmit},
+    methods: {getData, urlEncoding, Submit},
     created() {
       this.id = getUrl('id');
       if (this.id !== false) {
         this.message = '编辑';
-        this.getTableData(2);
+        this.getData('/visit/table2/query?id=' + this.id);
       } else {
         this.message = '添加';
         this.id = '';

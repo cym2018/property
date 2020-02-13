@@ -61,17 +61,17 @@
 <script>
   const app = new Vue({
     el: '#app',
-    data: {selectForm, page, list, statistics, titles: table2Titles,counts},
-    methods: {getTablePage, getTableStatistics,getTableCounts},
+    data: {selectForm, page, list, statistics, titles: table2Titles, counts},
+    methods: {getPage, getTableStatistics, getTableCounts},
     created() {
-      this.getTablePage(2);
+      this.getPage('/visit/table2/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
       this.getTableStatistics(2);
       this.getTableCounts(2);
     },
   });
   app.$watch('page.showPage', {
     handler() {
-      this.getTablePage(2);
+      this.getPage('/visit/table2/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
       this.getTableStatistics(2);
       this.getTableCounts(2);
     },
@@ -79,7 +79,7 @@
   app.$watch('selectForm', {
     handler() {
       if (this.page.currPage === 0) {
-        this.getTablePage(2);
+        this.getPage('/visit/table2/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
         this.getTableStatistics(2);
         this.getTableCounts(2);
       } else this.page.currPage = 0;

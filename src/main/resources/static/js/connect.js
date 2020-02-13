@@ -1,9 +1,8 @@
-// public
-function loginF() {
+function login() {
   axios.get("/public/login", {params: {username: this.username, password: this.password,}}).then(res => {
     if (res.data === true) {
       alert('登陆成功!');
-      window.location.replace('/');
+      window.location.replace('/index.html');
     } else {
       alert('登陆失败:用户名或密码不正确!');
     }
@@ -22,28 +21,12 @@ function logout() {
   });
 }
 
-// table1
-function getTablePage(tableName) {
+function getPage(url) {
   self = this;
-  axios.get('/visit/table' + tableName + '/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm)).then(res => {
+  axios.get(url).then(res => {
     this.list.data = res.data.content;
     this.page.totalPage = res.data.totalPages;
     this.page.totalRow = res.data.totalElements;
-  });
-}
-
-function getTableData(tableName) {
-  self = this;
-  axios.get('/visit/table' + tableName + '/query?id=' + this.id).then((res => {
-    this.selectForm = res.data;
-  }));
-}
-
-function tableSubmit(tableName) {
-  self = this;
-  axios.get('/admin/table' + tableName + '/save?id=' + this.id + urlEncoding(this.selectForm)).then(res => {
-    alert(res.data);
-    window.location.replace("./index.html");
   });
 }
 
@@ -63,48 +46,20 @@ function getTableCounts(tableName) {
   })
 }
 
-
-// admin
-function getAdminData(info) {
+function getData(url) {
   self = this;
-  axios.get('/admin/query?id=' + info.id).then(res => {
-    info.username = res.data.username;
-    info.password = res.data.password;
-  });
+  axios.get(url).then((res => {
+    this.selectForm = res.data;
+  }));
 }
 
-function adminSubmit() {
-  self = this;
-  axios.get('/admin/save', {
-    params: {
-      id: this.info.id,
-      username: this.info.username,
-      password: this.info.password
-    }
-  }).then(res => {
+function Submit(url) {
+  axios.get(url).then(res => {
     if (res.data === true) {
-      alert(this.title + '成功');
+      alert('操作成功');
     } else {
-      alert(this.title + '失败');
+      alert('操作失败');
     }
+    window.location.replace('./index.html');
   });
 }
-
-
-// 公共
-function getList(url, params, ret) {
-  axios.get(url, {params: params}).then(res => {
-    ret.data = res.data;
-  });
-}
-
-function getPage(url, params, ret) {
-  axios.get(url, {params: params,}).then(res => {
-    ret.list.data = res.data.content;
-    ret.page.totalPage = res.data.totalPages;
-    ret.page.totalRow = res.data.totalElements;
-  });
-}
-
-
-

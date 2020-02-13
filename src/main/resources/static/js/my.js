@@ -95,3 +95,13 @@ function urlEncoding(object) {
   }
   return ret;
 }
+function urlEncoding2(object) {
+  let ret = '';
+  for (let i in object) {
+    if (eval('object.' + i) !== null && eval('object.' + i) !== undefined && eval('object.' + i) !== '') {
+      ret = ret + '&' + i + '=' + eval("object." + i);
+    }
+  }
+  ret=ret.replace('&','?');
+  return ret;
+}
