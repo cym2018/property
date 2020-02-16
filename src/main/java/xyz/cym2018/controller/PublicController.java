@@ -1,5 +1,6 @@
 package xyz.cym2018.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.Example;
@@ -48,11 +49,19 @@ public class PublicController extends template {
         Login login;
         try {
             login = sessionOperate.getLogin();
+            cookieOperate.CreateCookie("username", login.getUsername());
+            cookieOperate.CreateCookie("isAdmin", login.getId() == 1 ? "true" : "false");
+            return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
-        cookieOperate.CreateCookie("username", login.getUsername())
-                .CreateCookie("isAdmin", login.getId() == 1 ? "true" : "false");
-        return true;
+    }
+
+    @RequestMapping("/info")
+    public String Info() throws JsonProcessingException {
+        Login login;
+        login = sessionOperate.getLogin();
+        return objectMapper.writeValueAsString(login);
     }
 }

@@ -64,8 +64,6 @@ public class VisitController extends template {
         Table1 ret = new Table1();
         List<Table1> list = table1Repository.findAll(Example.of(table1));
         for (Table1 i : list) {
-//            if (i.getArea() != null) countArea++;
-//            if (i.getPaidForTime() != null) countPaidForTime++;
             if (i.getBreaks() != null) countBreaks++;
             if (i.getPaidAt51() != null) countPaidAt51++;
             if (i.getDepsit() != null) countDepsit++;
@@ -128,7 +126,7 @@ public class VisitController extends template {
 
     @RequestMapping("/table2/counts")
     public String Table2Count(Table2 table2) throws JsonProcessingException {
-        int countRefundNumber = 0, countProperty1 = 0, countProperty2 = 0, countProperty3 = 0, countNumberNote = 0, countArea = 0, countGarbage = 0,countTextNote=0,countDepositState=0;
+        int countRefundNumber = 0, countProperty1 = 0, countProperty2 = 0, countProperty3 = 0, countNumberNote = 0, countArea = 0, countGarbage = 0, countTextNote = 0, countDepositState = 0;
         Table2 ret = new Table2();
         List<Table2> list = table2Repository.findAll(Example.of(table2));
         for (Table2 i : list) {
@@ -138,8 +136,8 @@ public class VisitController extends template {
             if (i.getProperty2() != null) countProperty2++;
             if (i.getProperty3() != null) countProperty3++;
             if (i.getNumberNote() != null) countNumberNote++;
-            if(i.getTextNote()!=null)countTextNote++;
-            if(i.getDepositState()!=null)countDepositState++;
+            if (i.getTextNote() != null) countTextNote++;
+            if (i.getDepositState() != null) countDepositState++;
         }
         ret.setRefundNumber((double) countRefundNumber);
         ret.setGarbage((double) countGarbage);

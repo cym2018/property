@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.InitBinder;
 import xyz.cym2018.DAO.LoginRepository;
 import xyz.cym2018.DAO.Table1Repository;
@@ -15,7 +16,7 @@ import xyz.cym2018.tools.SessionOperate;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-
+@CrossOrigin(origins = "*")
 public class template {
     @Autowired
     ObjectMapper objectMapper;
