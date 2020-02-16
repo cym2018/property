@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import xyz.cym2018.DAO.Login;
 import xyz.cym2018.DAO.Table1;
 import xyz.cym2018.DAO.Table2;
+import xyz.cym2018.DAO.Table3;
 
 import java.util.Optional;
 
@@ -61,6 +62,17 @@ public class AdminController extends template {
     public Boolean Table2Save(Table2 table2) {
         try {
             table2Repository.save(table2);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+    @RequestMapping("/table3/save")
+    public Boolean Table3Save(Table3 table3) {
+        try {
+            table3Repository.save(table3);
             return true;
         } catch (Exception e) {
             return false;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import xyz.cym2018.DAO.LoginRepository;
 import xyz.cym2018.DAO.Table1Repository;
 import xyz.cym2018.DAO.Table2Repository;
+import xyz.cym2018.DAO.Table3Repository;
 import xyz.cym2018.tools.CookieOperate;
 import xyz.cym2018.tools.SessionOperate;
 
@@ -26,6 +27,8 @@ public class template {
     Table1Repository table1Repository;
     @Autowired
     Table2Repository table2Repository;
+    @Autowired
+    Table3Repository table3Repository;
     @Autowired
     SessionOperate sessionOperate;
     @Autowired

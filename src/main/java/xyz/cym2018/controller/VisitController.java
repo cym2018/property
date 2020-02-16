@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.cym2018.DAO.Table1;
 import xyz.cym2018.DAO.Table2;
+import xyz.cym2018.DAO.Table3;
 
 import java.util.List;
 import java.util.Optional;
@@ -141,6 +142,67 @@ public class VisitController extends template {
         }
         ret.setRefundNumber((double) countRefundNumber);
         ret.setGarbage((double) countGarbage);
+        ret.setProperty1((double) countProperty1);
+        ret.setProperty2((double) countProperty2);
+        ret.setProperty3((double) countProperty3);
+        ret.setNumberNote((double) countNumberNote);
+        ret.setTextNote(String.valueOf(countTextNote));
+        ret.setDepositState(String.valueOf(countDepositState));
+        return objectMapper.writeValueAsString(ret);
+    }
+
+
+    @RequestMapping("/table3/query")
+    public String Table3Query(Table3 table3, Integer pageSize, Integer pageNumber) {
+        try {
+            if (pageNumber != null) {
+                Page<Table3> page = table3Repository.findAll(Example.of(table3), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
+                return objectMapper.writeValueAsString(page);
+            } else {
+                Optional<Table3> ret = table3Repository.findById(table3.getId());
+                if (!ret.isPresent()) {
+                    throw new Exception("无符合条件的记录");
+                }
+                table3 = ret.get();
+                return objectMapper.writeValueAsString(table3);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    @RequestMapping("/table3/statistics")
+    public String Table3Statistics(Table3 table3) {
+        // select distinct name from table2
+        try {
+            List<Table3> list = table3Repository.findAll(Example.of(table3));
+            table3.Clear();
+            for (Table3 i : list) {
+                table3.Add(i);
+            }
+            return objectMapper.writeValueAsString(table3);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
+    @RequestMapping("/table3/counts")
+    public String Table3Count(Table3 table3) throws JsonProcessingException {
+        int countRefundNumber = 0, countProperty1 = 0, countProperty2 = 0, countProperty3 = 0, countNumberNote = 0, countArea = 0, countGarbage = 0, countTextNote = 0, countDepositState = 0;
+        Table3 ret = new Table3();
+        List<Table3> list = table3Repository.findAll(Example.of(table3));
+        for (Table3 i : list) {
+            if (i.getRefundNumber() != null) countRefundNumber++;
+            if (i.getProperty1() != null) countProperty1++;
+            if (i.getProperty2() != null) countProperty2++;
+            if (i.getProperty3() != null) countProperty3++;
+            if (i.getNumberNote() != null) countNumberNote++;
+            if (i.getTextNote() != null) countTextNote++;
+            if (i.getDepositState() != null) countDepositState++;
+        }
+        ret.setRefundNumber((double) countRefundNumber);
         ret.setProperty1((double) countProperty1);
         ret.setProperty2((double) countProperty2);
         ret.setProperty3((double) countProperty3);

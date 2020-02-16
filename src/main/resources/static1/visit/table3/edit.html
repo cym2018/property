@@ -38,7 +38,6 @@
   </div>
   <div class="floatLeft">
     <h4>支付信息</h4>
-    <label><span>垃圾费:</span><input v-model="selectForm.garbage"/></label><br>
     <label><span>物业费1:</span><input v-model="selectForm.property1"/></label><br>
     <label><span>物业费2:</span><input v-model="selectForm.property2"/></label><br>
     <label><span>物业费3:</span><input v-model="selectForm.property3"/></label>
@@ -49,7 +48,7 @@
     <label><span>文字备注:</span><textarea v-model="selectForm.textNote"></textarea></label>
   </div>
   <div class="floatClear"></div>
-  <button @click="Submit('/admin/table2/save?id=' + id + urlEncoding(selectForm))">保存</button>
+  <button @click="Submit('/admin/table3/save?id=' + id + urlEncoding(selectForm))">保存</button>
 </div>
 <script>
   const app = new Vue({
@@ -60,7 +59,7 @@
       this.id = getUrl('id');
       if (this.id !== false) {
         this.message = '编辑';
-        this.getData('/visit/table2/query?id=' + this.id);
+        this.getData('/visit/table3/query?id=' + this.id);
       } else {
         this.message = '添加';
         this.id = '';

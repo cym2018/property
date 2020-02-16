@@ -1,7 +1,6 @@
 package xyz.cym2018.DAO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import javax.persistence.Entity;
@@ -9,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.sql.Date;
 
 @JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "breaks", "paidAt51",
         "depsit", "depositToCost", "refundNumber", "property1", "property2", "property3", "numberNote", "textNote"})
@@ -34,31 +34,33 @@ public class Table1 {
     // 押金抵费
     private Double depositToCost;
     // 交费至
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private String paidForTime;
-    // 退款姓名
-    @JsonIgnore
-    private String refundName;
-    // 退款账号
-    @JsonIgnore
-    private String refundAccount;
+//    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date paidForTime;
     // 退款金额
     private Double refundNumber;
     // 减免
     private Double breaks;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    public Date getPaidForTime() {
+        return paidForTime;
+    }
+
+    public void setPaidForTime(Date paidForTime) {
+        this.paidForTime = paidForTime;
+    }
+
     // 5.1号缴费
     private Double paidAt51;
     // 押金
     private String depsit;
-    // 垃圾
-    @JsonIgnore
-    private Double garbageRate;
-    // 水费
-    @JsonIgnore
-    private Double waterRate;
     private Double property1;
     private Double property2;
     private Double property3;
+
+    // 数字备注
+    private Double numberNote;
+    // 文字备注
+    private String textNote;
 
     public Double getProperty1() {
         return property1;
@@ -84,11 +86,6 @@ public class Table1 {
         this.numberNote = numberNote;
     }
 
-    // 文字备注
-    private String textNote;
-    // 数字备注
-    private Double numberNote;
-
     public Integer getId() {
         return id;
     }
@@ -102,52 +99,30 @@ public class Table1 {
     }
 
 
-
     public String getName() {
         return name;
     }
 
-    public String getPaidForTime() {
-        return paidForTime;
-    }
 
     public Double getRefundNumber() {
         return refundNumber;
     }
 
-    public String getRefundName() {
-        return refundName;
-    }
-
-    public String getRefundAccount() {
-        return refundAccount;
-    }
 
     public Double getBreaks() {
         return breaks;
     }
 
 
-    public Double getGarbageRate() {
-        return garbageRate;
-    }
-
     public Double getPaidAt51() {
         return paidAt51;
     }
 
-    public Double getWaterRate() {
-        return waterRate;
-    }
 
     public String getDepsit() {
         return depsit;
     }
 
-
-    public void setGarbageRate(Double garbageRate) {
-        this.garbageRate = garbageRate;
-    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -171,20 +146,7 @@ public class Table1 {
             this.name = name;
     }
 
-    public void setPaidForTime(String paidForTime) {
-        if (!"".equals(paidForTime))
-            this.paidForTime = paidForTime;
-    }
 
-    public void setRefundAccount(String refundAccount) {
-        if (!"".equals(refundAccount))
-            this.refundAccount = refundAccount;
-    }
-
-    public void setRefundName(String refundName) {
-        if (!"".equals(refundName))
-            this.refundName = refundName;
-    }
 
     public void setRefundNumber(Double refundNumber) {
         this.refundNumber = refundNumber;
@@ -200,9 +162,6 @@ public class Table1 {
         this.paidAt51 = paidAt51;
     }
 
-    public void setWaterRate(Double waterRate) {
-        this.waterRate = waterRate;
-    }
 
     public Integer getBuildingNumber() {
         return buildingNumber;
@@ -256,33 +215,6 @@ public class Table1 {
         property1 = 0.0;
         property2 = 0.0;
         property3 = 0.0;
-    }
-
-    @Override
-    public String toString() {
-        return "Table1{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", buildingNumber=" + buildingNumber +
-                ", unitNumber=" + unitNumber +
-                ", roomNumber=" + roomNumber +
-                ", area=" + area +
-                ", depositToCost=" + depositToCost +
-                ", paidForTime='" + paidForTime + '\'' +
-                ", refundName='" + refundName + '\'' +
-                ", refundAccount='" + refundAccount + '\'' +
-                ", refundNumber=" + refundNumber +
-                ", breaks=" + breaks +
-                ", paidAt51=" + paidAt51 +
-                ", depsit='" + depsit + '\'' +
-                ", garbageRate=" + garbageRate +
-                ", waterRate=" + waterRate +
-                ", property1=" + property1 +
-                ", property2=" + property2 +
-                ", property3=" + property3 +
-                ", textNote='" + textNote + '\'' +
-                ", numberNote=" + numberNote +
-                '}';
     }
 
     public void Add(Table1 table1) {

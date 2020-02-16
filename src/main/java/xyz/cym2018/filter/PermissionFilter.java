@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "permissionsFilter", urlPatterns = {"/admin/*", "/visit/table1/edit*","/Table1Do"})
+@WebFilter(filterName = "permissionsFilter", urlPatterns = "/admin/*")
 public class PermissionFilter implements Filter {
     final static Logger logger = LogManager.getLogger(PermissionFilter.class);
 
