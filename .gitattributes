@@ -1,2 +1,3 @@
 vue.config.js -linguist-detectable
 axios.js -linguist-detectable
+app.*.js -linguist-detectable
