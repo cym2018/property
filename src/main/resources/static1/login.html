@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>登陆</title>
+  <link type="text/css" rel="stylesheet" href="./css/login.css">
+  <script src="./js/vue.js"></script>
+  <script src="./js/axios.js"></script>
+  <script src="./js/my.js"></script>
+  <script src="./js/connect.js"></script>
+</head>
+<body>
+<div id="app">
+  <div class="loginForm">
+    <p>{{message}}</p>
+    <h1>登陆</h1>
+    <label><input type="text" v-model="username" placeholder="用户名"/></label><br>
+    <label><input type="password" v-model="password" placeholder="密码"/></label><br>
+    <button @click="login" id="login">登陆</button>
+    <button onclick="alert('请联系管理员获取登陆权限')" id="register">注册</button>
+    <div class="clear"></div>
+  </div>
+</div>
+<script>
+  let app = new Vue({
+    el: '#app',
+    data: {username, password, message,},
+    methods: {login, getUrl,},
+    created() {
+      if (getUrl('message') === 'login') {
+        this.message = '您未登录,请登陆';
+      }
+    }
+  })
+</script>
+</body>
+</html>

@@ -13,6 +13,7 @@ import xyz.cym2018.DAO.Table1;
 import xyz.cym2018.DAO.Table2;
 import xyz.cym2018.DAO.Table3;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +24,16 @@ public class VisitController extends template {
 
 
     @RequestMapping("/table1/query")
-    public String Table1Query(Table1 table1, Integer pageSize, Integer pageNumber) {
+    public String Table1Query(Table1 table1, Integer pageSize, Integer pageNumber, Integer startYear, Integer startMonth, Integer endYear, Integer endMonth) {
+        Long startTime=null,endTime=null;
+        if(startYear!=null&&startMonth!=null){
+            // todo:开始时间筛选
+            startTime=new Date(startYear,startMonth,1).getTime();
+        }
+        if(endMonth!=null&&endYear!=null){
+            // todo:结束时间筛选
+            endTime=new Date(endYear,endMonth,1).getTime();
+        }
         try {
             if (pageNumber != null) {
                 logger.info(table1.toString());

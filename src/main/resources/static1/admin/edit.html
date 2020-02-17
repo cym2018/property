@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <title>编辑</title>
+  <script src="../js/vue.js"></script>
+  <script src="../js/axios.js"></script>
+  <script src="../js/my.js"></script>
+  <script src="../js/connect.js"></script>
+</head>
+<body>
+<div id="app">
+  <h1>{{title}}</h1>
+  <label>id:<input v-model="selectForm.id" disabled="disabled"></label><br>
+  <label>用户名:<input v-model="selectForm.username"></label><br>
+  <label>密码:<input v-model="selectForm.password"></label><br>
+
+  <button @click="Submit('/admin/save'+urlEncoding2(selectForm))">提交</button>
+</div>
+<script>
+  let app = new Vue({
+    el: '#app',
+    data: {title, selectForm,},
+    methods: {getVariable, getData, Submit,urlEncoding2},
+    created() {
+      this.selectForm.id = getUrl('id');
+      if (this.selectForm.id === false) {
+        this.title = '添加';
+        this.selectForm.id = '';
+      } else {
+        this.title = '修改';
+        this.getData('/admin/query'+urlEncoding2(selectForm));
+      }
+    }
+
+  });
+</script>
+</body>
+
+</html>

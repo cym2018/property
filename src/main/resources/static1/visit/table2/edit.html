@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>编辑</title>
+  <script src="../../js/vue.js"></script>
+  <script src="../../js/axios.js"></script>
+  <script src="../../js/my.js"></script>
+  <script src="../../js/connect.js"></script>
+  <style>
+    textarea {
+      width: 100%;
+      height: 100px;
+    }
+  </style>
+  <link rel="stylesheet" href="../../css/edit.css">
+</head>
+<body>
+<div id="app">
+  <h2>{{message}}</h2>
+  <br>
+  <div class="floatLeft">
+    <h4>基本信息</h4>
+    <label><span>姓名:</span><input v-model="selectForm.name"/></label><br>
+    <label><span>楼号:</span><input v-model="selectForm.buildingNumber"/></label><br>
+    <label><span>单元:</span><input v-model="selectForm.unitNumber"/></label><br>
+    <label><span>房号:</span><input v-model="selectForm.roomNumber"/></label><br>
+    <label><span>面积:</span><input v-model="selectForm.area"/></label><br>
+    <label><span>交费至:</span><input v-model="selectForm.paidForTime" type="date"/></label><br>
+  </div>
+
+  <div class="floatLeft">
+    <h4>押金</h4>
+    <label><span>退款日期:</span><input v-model="selectForm.refundDate"/></label><br>
+    <label><span>退款姓名:</span><input v-model="selectForm.refundName"/></label><br>
+    <label><span>退款金额:</span><input v-model="selectForm.refundNumber"/></label><br>
+    <label><span>退款状态:</span><input v-model="selectForm.depositState"/></label>
+  </div>
+  <div class="floatLeft">
+    <h4>支付信息</h4>
+    <label><span>垃圾费:</span><input v-model="selectForm.garbage"/></label><br>
+    <label><span>物业费1:</span><input v-model="selectForm.property1"/></label><br>
+    <label><span>物业费2:</span><input v-model="selectForm.property2"/></label><br>
+    <label><span>物业费3:</span><input v-model="selectForm.property3"/></label>
+  </div>
+  <div class="floatLeft">
+    <h4>备注</h4>
+    <label><span>数值备注:</span><input v-model="selectForm.numberNote"/></label><br>
+    <label><span>文字备注:</span><textarea v-model="selectForm.textNote"></textarea></label>
+  </div>
+  <div class="floatClear"></div>
+  <button @click="Submit('/admin/table2/save?id=' + id + urlEncoding(selectForm))">保存</button>
+</div>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {id, selectForm, message: ''},
+    methods: {getData, urlEncoding, Submit},
+    created() {
+      this.id = getUrl('id');
+      if (this.id !== false) {
+        this.message = '编辑';
+        this.getData('/visit/table2/query?id=' + this.id);
+      } else {
+        this.message = '添加';
+        this.id = '';
+      }
+    },
+  });
+</script>
+</body>
+</html>
