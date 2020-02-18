@@ -5,3 +5,7 @@ table, table tr th, table tr td {
 input {
   width: 50px;
 }
+
+input[type=date] {
+  width: 100px;
+}

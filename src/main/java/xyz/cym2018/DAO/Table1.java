@@ -40,6 +40,7 @@ public class Table1 {
     private Double refundNumber;
     // 减免
     private Double breaks;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     public Date getPaidForTime() {
         return paidForTime;
@@ -147,7 +148,6 @@ public class Table1 {
     }
 
 
-
     public void setRefundNumber(Double refundNumber) {
         this.refundNumber = refundNumber;
     }
@@ -206,7 +206,12 @@ public class Table1 {
 
     // 清空数据
     public void Clear() {
+        buildingNumber = 0;
+        unitNumber = 0;
+        roomNumber = 0;
         area = 0.0;
+        depsit = "0";
+        textNote = "0";
         depositToCost = 0.0;
         refundNumber = 0.0;
         breaks = 0.0;
@@ -217,22 +222,36 @@ public class Table1 {
         property3 = 0.0;
     }
 
-    public void Add(Table1 table1) {
-        area = Add(area, table1.area);
-        depositToCost = Add(depositToCost, table1.depositToCost);
-        refundNumber = Add(refundNumber, table1.refundNumber);
-        breaks = Add(breaks, table1.breaks);
-        paidAt51 = Add(paidAt51, table1.paidAt51);
-        property1 = Add(property1, table1.property1);
-        property2 = Add(property2, table1.property2);
-        property3 = Add(property3, table1.property3);
-        numberNote = Add(numberNote, table1.numberNote);
-    }
-
-    public double Add(Double a, Double b) {
+    public double Statistics(Double a, Double b) {
         if (b != null) {
             return new BigDecimal(a.toString()).add(new BigDecimal(b.toString())).doubleValue();
         }
         return a;
+    }
+
+    public void Statistics(Table1 table1) {
+        area = Statistics(area, table1.area);
+        depositToCost = Statistics(depositToCost, table1.depositToCost);
+        refundNumber = Statistics(refundNumber, table1.refundNumber);
+        breaks = Statistics(breaks, table1.breaks);
+        paidAt51 = Statistics(paidAt51, table1.paidAt51);
+        property1 = Statistics(property1, table1.property1);
+        property2 = Statistics(property2, table1.property2);
+        property3 = Statistics(property3, table1.property3);
+        numberNote = Statistics(numberNote, table1.numberNote);
+    }
+
+    public void Counts(Table1 table1) {
+        if (table1.getBreaks() != null) breaks++;
+        if (table1.getPaidAt51() != null) paidAt51++;
+        if (table1.getDepsit() != null) depsit = String.valueOf((Integer.parseInt(depsit) + 1));
+        if (table1.getDepositToCost() != null) depositToCost++;
+        if (table1.getRefundNumber() != null) refundNumber++;
+        if (table1.getProperty1() != null) property1++;
+        if (table1.getProperty2() != null) property2++;
+        if (table1.getProperty3() != null) property3++;
+        if (table1.getNumberNote() != null) numberNote++;
+        if (table1.getTextNote() != null) textNote = String.valueOf((Integer.parseInt(textNote) + 1));
+
     }
 }

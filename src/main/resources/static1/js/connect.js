@@ -27,6 +27,10 @@ function getPage(url) {
     this.list.data = res.data.content;
     this.page.totalPage = res.data.totalPages;
     this.page.totalRow = res.data.totalElements;
+    console.log(this.page.pageSize);
+    this.page.pageSize = res.data.pageSize;
+    this.statistics = res.data.statistics;
+    this.counts = res.data.counts;
   });
 }
 
@@ -57,9 +61,9 @@ function Submit(url) {
   axios.get(url).then(res => {
     if (res.data === true) {
       alert('操作成功');
-    } else if(res.data===false) {
+    } else if (res.data === false) {
       alert('操作失败');
-    }else {
+    } else {
       alert(res.data)
     }
     window.location.replace('./index.html');

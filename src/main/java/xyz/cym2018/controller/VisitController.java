@@ -3,41 +3,85 @@ package xyz.cym2018.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xyz.cym2018.DAO.Table1;
 import xyz.cym2018.DAO.Table2;
 import xyz.cym2018.DAO.Table3;
+import xyz.cym2018.tools.MyPage;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
+
+// 1. 根据selectForm获取符合条件的条目
+// 2. 筛选时间
+// 3. 排序
 @RestController
 @RequestMapping("/visit")
 public class VisitController extends template {
-    final static Logger logger = LogManager.getLogger(VisitController.class);
+    private int pageSize;
+    private final static Logger logger = LogManager.getLogger(VisitController.class);
+    private Sort sort;
 
+    public VisitController() {
+        pageSize = 20;
+        sort = Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber");
+    }
+
+
+    @RequestMapping("/set")
+    public void set(Integer pageSize) {
+
+        if (pageSize != null)
+            this.pageSize = pageSize;
+    }
+
+    @RequestMapping("/table1/query1")
+    public String Table1Query(Table1 table1, Date startDate, Date endDate, Integer pageNumber) throws JsonProcessingException {
+        // 获得Example筛选结果
+        List<Table1> list = table1Repository.findAll(Example.of(table1), sort);
+        // 获得日期筛选结果
+        if (startDate != null) {
+            list.removeIf(o -> {
+                if (o.getPaidForTime() == null)
+                    return true;
+                return o.getPaidForTime().before(startDate);
+            });
+        }
+        if (endDate != null) {
+            list.removeIf(o -> {
+                if (o.getPaidForTime() == null)
+                    return true;
+                return o.getPaidForTime().after(endDate);
+            });
+        }
+        Table1 counts = new Table1(), statistics = new Table1();
+        counts.setName("非空行数");
+        counts.Clear();
+        statistics.setName("求和");
+        statistics.Clear();
+        list.forEach(statistics::Statistics);
+        list.forEach(counts::Counts);
+        return objectMapper.writeValueAsString(new MyPage<Table1>(list, pageSize, pageNumber, statistics, counts));
+    }
 
     @RequestMapping("/table1/query")
-    public String Table1Query(Table1 table1, Integer pageSize, Integer pageNumber, Integer startYear, Integer startMonth, Integer endYear, Integer endMonth) {
-        Long startTime=null,endTime=null;
-        if(startYear!=null&&startMonth!=null){
+    public String Table1Query(Table1 table1, Integer pageNumber, Integer startYear, Integer startMonth, Integer endYear, Integer endMonth) {
+        Long startTime = null, endTime = null;
+        if (startYear != null && startMonth != null) {
             // todo:开始时间筛选
-            startTime=new Date(startYear,startMonth,1).getTime();
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(startYear, startMonth);
         }
-        if(endMonth!=null&&endYear!=null){
-            // todo:结束时间筛选
-            endTime=new Date(endYear,endMonth,1).getTime();
-        }
+
         try {
             if (pageNumber != null) {
                 logger.info(table1.toString());
-                Page<Table1> page = table1Repository.findAll(Example.of(table1), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
+                Page<Table1> page = table1Repository.findAll(Example.of(table1), PageRequest.of(pageNumber, pageSize, sort));
                 return objectMapper.writeValueAsString(page);
             } else {
                 Optional<Table1> ret = table1Repository.findById(table1.getId());
@@ -59,7 +103,7 @@ public class VisitController extends template {
             List<Table1> list = table1Repository.findAll(Example.of(table1));
             table1.Clear();
             for (Table1 i : list) {
-                table1.Add(i);
+                table1.Statistics(i);
             }
             return objectMapper.writeValueAsString(table1);
         } catch (Exception e) {
@@ -68,8 +112,9 @@ public class VisitController extends template {
         }
     }
 
+    // page:第x页,size:每页x条数据
     @RequestMapping("/table1/counts")
-    public String Table1Count(Table1 table1) throws JsonProcessingException {
+    public String Table1Count(Table1 table1, Pageable pageable) throws JsonProcessingException {
         int countPaidForTime = 0, countBreaks = 0, countPaidAt51 = 0, countDepsit = 0, countDepositToCost = 0, countRefundNumber = 0,
                 countProperty1 = 0, countProperty2 = 0, countProperty3 = 0, countNumberNote = 0, countArea = 0, countTextNote = 0;
         Table1 ret = new Table1();
@@ -100,10 +145,10 @@ public class VisitController extends template {
     }
 
     @RequestMapping("/table2/query")
-    public String Table2Query(Table2 table2, Integer pageSize, Integer pageNumber) {
+    public String Table2Query(Table2 table2, Integer pageNumber) {
         try {
             if (pageNumber != null) {
-                Page<Table2> page = table2Repository.findAll(Example.of(table2), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
+                Page<Table2> page = table2Repository.findAll(Example.of(table2), PageRequest.of(pageNumber, pageSize, sort));
                 return objectMapper.writeValueAsString(page);
             } else {
                 Optional<Table2> ret = table2Repository.findById(table2.getId());
@@ -163,10 +208,10 @@ public class VisitController extends template {
 
 
     @RequestMapping("/table3/query")
-    public String Table3Query(Table3 table3, Integer pageSize, Integer pageNumber) {
+    public String Table3Query(Table3 table3, Integer pageNumber) {
         try {
             if (pageNumber != null) {
-                Page<Table3> page = table3Repository.findAll(Example.of(table3), PageRequest.of(pageNumber, pageSize, Sort.by(Sort.Direction.ASC, "buildingNumber", "unitNumber", "roomNumber")));
+                Page<Table3> page = table3Repository.findAll(Example.of(table3), PageRequest.of(pageNumber, pageSize, sort));
                 return objectMapper.writeValueAsString(page);
             } else {
                 Optional<Table3> ret = table3Repository.findById(table3.getId());
@@ -221,4 +266,11 @@ public class VisitController extends template {
         ret.setDepositState(String.valueOf(countDepositState));
         return objectMapper.writeValueAsString(ret);
     }
+
+//    @RequestMapping("/test/streamable")
+//    public String TestStreamable(Table1 table1, Integer startYear, Integer startMonth, Integer endYear, Integer endMonth) throws JsonProcessingException {
+//        Date std=new Date(2020,1,1),edd=new Date(2021,1,1);
+//        Streamable<Table1> ret=table1Repository.findStream(Example.of(table1)).and(table1Repository.findByPaidForTimeAfter(std)).and(table1Repository.findByPaidForTimeBefore(edd));
+//        return objectMapper.writeValueAsString(ret.toList());
+//    }
 }

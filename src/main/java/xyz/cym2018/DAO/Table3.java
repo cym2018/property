@@ -9,9 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.sql.Date;
+
 @JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "refundDate", "refundName", "refundNumber", "depositState", "property1", "property2", "property3", "numberNote", "textNote"})
 @Entity
-public class Table3 {
+public class Table3{
     //
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,6 +85,7 @@ public class Table3 {
     public void setArea(Double area) {
         this.area = area;
     }
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     public Date getPaidForTime() {
         return paidForTime;
@@ -191,6 +193,8 @@ public class Table3 {
         }
         return a;
     }
+
+
     public void Clear() {
         area = 0.0;
         refundNumber = 0.0;

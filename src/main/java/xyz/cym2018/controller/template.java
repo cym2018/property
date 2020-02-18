@@ -17,6 +17,7 @@ import xyz.cym2018.tools.SessionOperate;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 @CrossOrigin(origins = "*")
 public class template {
     @Autowired
@@ -41,5 +42,7 @@ public class template {
         // 处理时间格式,允许时间空值
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+
     }
+
 }

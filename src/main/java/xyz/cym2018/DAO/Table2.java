@@ -221,6 +221,14 @@ public class Table2 {
         numberNote = 0.0;
     }
 
+
+    public double Add(Double a, Double b) {
+        if (b != null) {
+            return new BigDecimal(a.toString()).add(new BigDecimal(b.toString())).doubleValue();
+        }
+        return a;
+    }
+
     public void Add(Table2 table2) {
         area = Add(area, table2.area);
         refundNumber = Add(refundNumber, table2.refundNumber);
@@ -229,12 +237,5 @@ public class Table2 {
         property2 = Add(property2, table2.property2);
         property3 = Add(property3, table2.property3);
         numberNote = Add(numberNote, table2.numberNote);
-    }
-
-    public double Add(Double a, Double b) {
-        if (b != null) {
-            return new BigDecimal(a.toString()).add(new BigDecimal(b.toString())).doubleValue();
-        }
-        return a;
     }
 }

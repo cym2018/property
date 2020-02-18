@@ -15,7 +15,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/admin")
 public class AdminController extends template {
-
     @RequestMapping("/query")
     public String Table1Query(Login login, Integer pageSize, Integer pageNumber) {
         try {

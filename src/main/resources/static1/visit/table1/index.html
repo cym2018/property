@@ -12,10 +12,8 @@
 <body>
 <h1>商基鑫城物业信息管理系统</h1>
 <div id="app">
-  从<label><input v-model="selectForm.startYear">年</label>
-  <label><input v-model="selectForm.startMonth">月</label>
-  到<label><input v-model="selectForm.endYear">年</label>
-  <label><input v-model="selectForm.endMonth">月</label>
+  从<label><input v-model="selectForm.startDate" type="date">年</label>
+  到<label><input v-model="selectForm.endDate" type="date">年</label>
   <table>
     <tr>
       <th><label><input v-model="selectForm.name" placeholder="姓名"/></label></th>
@@ -23,7 +21,7 @@
       <th><label><input v-model="selectForm.unitNumber" placeholder="单元"/></label></th>
       <th><label><input v-model="selectForm.roomNumber" placeholder="房号"/></label></th>
       <th><label><input v-model="selectForm.area" placeholder="面积"/></label></th>
-      <th><label><input v-model="selectForm.paidForTime" placeholder="交费至" type="date"/></label></th>
+      <th></th>
       <th><label><input v-model="selectForm.breaks" placeholder="减免金额"/></label></th>
       <th><label><input v-model="selectForm.paidAt51" placeholder="5月1日交费"/></label></th>
       <th><label><input v-model="selectForm.depsit" placeholder="押金"/></label></th>
@@ -56,39 +54,41 @@
   第<label><input v-model="page.showPage"></label>页,共{{page.totalPage}}页 ,
   {{page.firstRow}}-{{page.lastRow}}/{{page.totalRow}}条
   <button @Click="page.currPage++" class="btn btn-primary">下一页</button>
+  <label>每页显示<input v-model="page.pageSize"></label>条数据
 </div>
 <script>
+  let tableUrl = "/visit/table1/query1";
   const app = new Vue({
     el: '#app',
     data: {selectForm, page, list, statistics, counts, titles: table1Titles},
     methods: {
       urlEncoding,
       getPage,
-      getTableStatistics,
-      getTableCounts
+      fresh: function () {
+        this.getPage(tableUrl + '?pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
+      }
     },
     created() {
-      this.getPage('/visit/table1/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
-      this.getTableStatistics(1);
-      this.getTableCounts(1);
+      this.fresh();
     },
   });
   app.$watch('page.showPage', {
     handler() {
-      this.getPage('/visit/table1/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
-      this.getTableStatistics(1);
-      this.getTableCounts(1);
+      this.fresh();
     },
   });
   app.$watch('selectForm', {
     handler() {
-      if (this.page.currPage === 0) {
-        this.getPage('/visit/table1/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
-        this.getTableStatistics(1);
-        this.getTableCounts(1);
-      } else this.page.currPage = 0;
+      if (this.page.currPage === 0) this.fresh();
+      else this.page.currPage = 0;
     }, deep: true
-  })
+  });
+  app.$watch('page.pageSize', {
+    handler() {
+      axios.get('/visit/set?pageSize=' + this.page.pageSize);
+      this.fresh();
+    }
+  });
 </script>
 </body>
 </html>
