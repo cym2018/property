@@ -9,8 +9,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-// todo:修改map
-@WebFilter(filterName = "loginFilter", urlPatterns = {"/aaaadmin/*", "/aaavisit/*"})
+@WebFilter(filterName = "loginFilter", urlPatterns = {"/admin/*", "/visit/*"})
 public class LoginFilter implements Filter {
     final static Logger logger = LogManager.getLogger(LoginFilter.class);
 

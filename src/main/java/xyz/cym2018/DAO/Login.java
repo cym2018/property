@@ -12,45 +12,45 @@ public class Login {
     private String password;
     private Integer permissions;
 
+    @Override
+    public String toString() {
+        return "Login{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", permissions=" + permissions +
+                '}';
+    }
+
     public Integer getId() {
         return id;
-    }
-
-    public String getPassword() {
-        return password == null ? "" : password;
-    }
-
-    public String getUsername() {
-        return username == null ? "" : username;
-    }
-
-    public Integer getPermissions() {
-        return permissions;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setPermissions(Integer permissions) {
-        this.permissions = permissions;
+    public String getPassword() {
+        return password;
     }
 
-    @Override
-    public String toString() {
-        return "Login{" +
-                "id=" + id +
-                ", username='" + getUsername() + '\'' +
-                ", password='" + getPassword() + '\'' +
-                ", permissions=" + permissions +
-                '}';
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Integer permissions) {
+        this.permissions = permissions;
     }
 }

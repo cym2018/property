@@ -12,7 +12,7 @@ import java.sql.Date;
 
 @JsonPropertyOrder({"name", "buildingNumber", "unitNumber", "roomNumber", "area", "paidForTime", "refundDate", "refundName", "refundNumber", "depositState", "property1", "property2", "property3", "numberNote", "textNote"})
 @Entity
-public class Table3{
+public class Table3 {
     //
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -178,7 +178,7 @@ public class Table3{
     // 文字备注
     private String textNote;
 
-    public void Add(Table3 table3) {
+    public void Statistics(Table3 table3) {
         area = Add(area, table3.area);
         refundNumber = Add(refundNumber, table3.refundNumber);
         property1 = Add(property1, table3.property1);
@@ -194,13 +194,56 @@ public class Table3{
         return a;
     }
 
+    @Override
+    public String toString() {
+        return "Table3{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", buildingNumber=" + buildingNumber +
+                ", unitNumber=" + unitNumber +
+                ", roomNumber=" + roomNumber +
+                ", area=" + area +
+                ", paidForTime=" + paidForTime +
+                ", refundDate='" + refundDate + '\'' +
+                ", refundName='" + refundName + '\'' +
+                ", refundNumber=" + refundNumber +
+                ", depositState='" + depositState + '\'' +
+                ", property1=" + property1 +
+                ", property2=" + property2 +
+                ", property3=" + property3 +
+                ", numberNote=" + numberNote +
+                ", textNote='" + textNote + '\'' +
+                '}';
+    }
 
     public void Clear() {
+        buildingNumber = 0;
+        unitNumber = 0;
+        roomNumber = 0;
+
+        refundDate = "0";
+        refundName = "0";
+        depositState = "0";
+
+        textNote = "0";
         area = 0.0;
         refundNumber = 0.0;
         property1 = 0.0;
         property2 = 0.0;
         property3 = 0.0;
         numberNote = 0.0;
+    }
+
+    public void Counts(Table3 table3) {
+        if (table3.getRefundDate() != null) refundDate = String.valueOf((Integer.parseInt(refundDate) + 1));
+        if (table3.getRefundName() != null) refundName = String.valueOf((Integer.parseInt(refundName) + 1));
+        if (table3.getRefundNumber() != null) refundNumber++;
+        if (table3.getDepositState() != null) depositState = String.valueOf((Integer.parseInt(depositState) + 1));
+        if (table3.getProperty1() != null) property1++;
+        if (table3.getProperty2() != null) property2++;
+        if (table3.getProperty3() != null) property3++;
+        if (table3.getNumberNote() != null) numberNote++;
+        if (table3.getTextNote() != null) textNote = String.valueOf((Integer.parseInt(textNote) + 1));
+
     }
 }

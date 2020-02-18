@@ -3,26 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>列表</title>
-  <link rel="stylesheet" href="../../css/table.css">
   <script src="../../js/vue.js"></script>
   <script src="../../js/axios.js"></script>
   <script src="../../js/my.js"></script>
   <script src="../../js/connect.js"></script>
+  <link rel="stylesheet" href="../../css/table.css">
 </head>
 <body>
 <h1>彩虹小区</h1>
 <div id="app">
-  从<label><input v-model="selectForm.startDate" type="date">年</label>
-  到<label><input v-model="selectForm.endDate" type="date">年</label>
+  <label>从<input v-model="selectForm.startDate" type="date"></label>
+  <label>到<input v-model="selectForm.endDate" type="date"></label>
   <table>
-    <!--筛选-->
     <tr>
       <th><label><input v-model="selectForm.name" placeholder="姓名"/></label></th>
       <th><label><input v-model="selectForm.buildingNumber" placeholder="楼号"/></label></th>
       <th><label><input v-model="selectForm.unitNumber" placeholder="单元"/></label></th>
       <th><label><input v-model="selectForm.roomNumber" placeholder="房号"/></label></th>
       <th><label><input v-model="selectForm.area" placeholder="面积"/></label></th>
-      <th><label><input v-model="selectForm.paidForTime" placeholder="交费至"/></label></th>
+      <th></th>
       <th><label><input v-model="selectForm.refundDate" placeholder="退款日期"/></label></th>
       <th><label><input v-model="selectForm.refundName" placeholder="退款姓名"/></label></th>
       <th><label><input v-model="selectForm.refundNumber" placeholder="退款金额"/></label></th>
@@ -35,16 +34,15 @@
       <th><label><input v-model="selectForm.textNote" placeholder="文字备注"/></label></th>
       <th><a href="edit.html">添加</a></th>
     </tr>
-    <!--标题-->
     <tr>
       <th v-for="title in titles">{{title}}</th>
     </tr>
-    <!--数据-->
     <tr v-for="(list) in list.data">
       <td v-for="(value,key) in list" v-if="key!=='id'">{{value}}</td>
-      <td><a :href="'edit.html?id='+list.id">修改</a></td>
+      <td><a :href="'edit.html?id='+list.id">
+        <button>修改</button>
+      </a></td>
     </tr>
-    <!--统计-->
     <tr>
       <th v-for="object2 in statistics">{{object2}}</th>
     </tr>
@@ -52,42 +50,45 @@
       <th v-for="object3 in counts">{{object3}}</th>
     </tr>
   </table>
-  <button @Click="page.currPage--">上一页</button>
-  第<label>
-  <input v-model="page.showPage">
-</label>页,共{{page.totalPage}}页 ,
+  <button @Click="page.currPage--" class="btn btn-primary">上一页</button>
+  第<label><input v-model="page.showPage"></label>页,共{{page.totalPage}}页 ,
   {{page.firstRow}}-{{page.lastRow}}/{{page.totalRow}}条
-  <button @Click="page.currPage++">下一页</button>
+  <button @Click="page.currPage++" class="btn btn-primary">下一页</button>
   <label>每页显示<input v-model="page.pageSize"></label>条数据
 </div>
 <script>
   let tableUrl = "/visit/table2/query1";
   const app = new Vue({
     el: '#app',
-    data: {selectForm, page, list, statistics, titles: table2Titles, counts},
-    methods: {getPage, getTableStatistics, getTableCounts},
+    data: {selectForm, page, list, statistics, counts, titles: table2Titles},
+    methods: {
+      urlEncoding,
+      getPage,
+      fresh: function () {
+        this.getPage(tableUrl + '?pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
+      }
+    },
     created() {
-      this.getPage('/visit/table2/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
-      this.getTableStatistics(2);
-      this.getTableCounts(2);
+      this.fresh();
     },
   });
   app.$watch('page.showPage', {
     handler() {
-      this.getPage('/visit/table2/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
-      this.getTableStatistics(2);
-      this.getTableCounts(2);
+      this.fresh();
     },
   });
   app.$watch('selectForm', {
     handler() {
-      if (this.page.currPage === 0) {
-        this.getPage('/visit/table2/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage + urlEncoding(this.selectForm));
-        this.getTableStatistics(2);
-        this.getTableCounts(2);
-      } else this.page.currPage = 0;
+      if (this.page.currPage === 0) this.fresh();
+      else this.page.currPage = 0;
     }, deep: true
-  })
+  });
+  app.$watch('page.pageSize', {
+    handler() {
+      axios.get('/visit/set?pageSize=' + this.page.pageSize);
+      this.fresh();
+    }
+  });
 </script>
 </body>
 </html>

@@ -9,8 +9,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-// todo:修改筛选器
-@WebFilter(filterName = "permissionsFilter", urlPatterns = "/aaaadmin/*")
+@WebFilter(filterName = "permissionsFilter", urlPatterns = "/admin/*")
 public class PermissionFilter implements Filter {
     final static Logger logger = LogManager.getLogger(PermissionFilter.class);
 

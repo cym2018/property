@@ -34,26 +34,10 @@ function getPage(url) {
   });
 }
 
-function getTableStatistics(tableName) {
-  self = this;
-  axios.get('/visit/table' + tableName + '/statistics?info=' + urlEncoding(this.selectForm)).then(res => {
-    this.statistics = res.data;
-    this.statistics.name = '合计';
-  })
-}
-
-function getTableCounts(tableName) {
-  self = this;
-  axios.get('/visit/table' + tableName + '/counts?info=' + urlEncoding(this.selectForm)).then(res => {
-    this.counts = res.data;
-    this.counts.name = '非空行数';
-  })
-}
-
 function getData(url) {
   self = this;
   axios.get(url).then((res => {
-    this.selectForm = res.data;
+    this.selectForm = res.data.content[0];
   }));
 }
 

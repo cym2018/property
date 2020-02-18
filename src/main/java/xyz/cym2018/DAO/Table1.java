@@ -229,6 +229,29 @@ public class Table1 {
         return a;
     }
 
+    @Override
+    public String toString() {
+        return "Table1{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", buildingNumber=" + buildingNumber +
+                ", unitNumber=" + unitNumber +
+                ", roomNumber=" + roomNumber +
+                ", area=" + area +
+                ", depositToCost=" + depositToCost +
+                ", paidForTime=" + paidForTime +
+                ", refundNumber=" + refundNumber +
+                ", breaks=" + breaks +
+                ", paidAt51=" + paidAt51 +
+                ", depsit='" + depsit + '\'' +
+                ", property1=" + property1 +
+                ", property2=" + property2 +
+                ", property3=" + property3 +
+                ", numberNote=" + numberNote +
+                ", textNote='" + textNote + '\'' +
+                '}';
+    }
+
     public void Statistics(Table1 table1) {
         area = Statistics(area, table1.area);
         depositToCost = Statistics(depositToCost, table1.depositToCost);

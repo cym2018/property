@@ -53,6 +53,7 @@
   <button @click="Submit('/admin/table1/save' + urlEncoding2(selectForm))">保存</button>
 </div>
 <script>
+  let tableUrl = "/visit/table1/query1";
   const app = new Vue({
     el: '#app',
     data: {id, selectForm, message: ''},
@@ -61,7 +62,7 @@
       this.id = getUrl('id');
       if (this.id !== false) {
         this.message = '编辑';
-        this.getData('/visit/table1/query?id=' + this.id);
+        this.getData(tableUrl+'?id=' + this.id);
       } else {
         this.message = '添加';
         this.id = '';

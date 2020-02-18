@@ -59,13 +59,13 @@ public class Table2 {
                 ", unitNumber=" + unitNumber +
                 ", roomNumber=" + roomNumber +
                 ", area=" + area +
-                ", refundDate=" + refundDate +
+                ", refundDate='" + refundDate + '\'' +
                 ", refundName='" + refundName + '\'' +
                 ", refundNumber=" + refundNumber +
                 ", depositState='" + depositState + '\'' +
                 ", garbage=" + garbage +
                 ", property1=" + property1 +
-                ", paidForTime='" + paidForTime + '\'' +
+                ", paidForTime=" + paidForTime +
                 ", property2=" + property2 +
                 ", property3=" + property3 +
                 ", numberNote=" + numberNote +
@@ -212,6 +212,13 @@ public class Table2 {
     }
 
     public void Clear() {
+        buildingNumber = 0;
+        unitNumber = 0;
+        roomNumber = 0;
+        refundName = "0";
+        depositState = "0";
+        refundDate = "0";
+        textNote = "0";
         area = 0.0;
         refundNumber = 0.0;
         garbage = 0.0;
@@ -229,7 +236,7 @@ public class Table2 {
         return a;
     }
 
-    public void Add(Table2 table2) {
+    public void Statistics(Table2 table2) {
         area = Add(area, table2.area);
         refundNumber = Add(refundNumber, table2.refundNumber);
         garbage = Add(garbage, table2.garbage);
@@ -237,5 +244,19 @@ public class Table2 {
         property2 = Add(property2, table2.property2);
         property3 = Add(property3, table2.property3);
         numberNote = Add(numberNote, table2.numberNote);
+    }
+
+    public void Counts(Table2 table2) {
+        if (table2.getRefundNumber() != null) refundNumber++;
+        if (table2.getGarbage() != null) garbage++;
+        if (table2.getProperty1() != null) property1++;
+        if (table2.getProperty2() != null) property2++;
+        if (table2.getProperty3() != null) property3++;
+        if (table2.getNumberNote() != null) numberNote++;
+        if (table2.getTextNote() != null) textNote = String.valueOf((Integer.parseInt(textNote) + 1));
+        if (table2.getDepositState() != null) depositState = String.valueOf((Integer.parseInt(depositState) + 1));
+        if (table2.getRefundDate() != null) refundDate = String.valueOf((Integer.parseInt(refundDate) + 1));
+        if (table2.getRefundName() != null) refundName = String.valueOf((Integer.parseInt(refundName) + 1));
+
     }
 }

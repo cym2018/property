@@ -37,13 +37,15 @@ public class MyPage<T> {
     }
 
     //return objectMapper.writeValueAsString(new MyPage<Table1>(list, pageSize, pageNumber));
-    public MyPage(List<T> list, int pageSize, int pageNumber, T statistics, T counts) {
+    public MyPage(List<T> list, Integer pageSize, Integer pageNumber, T statistics, T counts) {
+        if (pageNumber == null) pageNumber = 0;
+        if (pageSize == null) pageSize = 20;
         setPageSize(pageSize);
         totalElements = list.size();
         // 计算总页数
         totalPages = totalElements / pageSize + (totalElements % pageSize == 0 ? 0 : 1);
         // 分页
-        content = new ArrayList<T>();
+        content = new ArrayList<>();
         for (int i = pageSize * pageNumber; i < pageSize * (pageNumber + 1) && i < list.size(); i++) {
             content.add(list.get(i));
         }

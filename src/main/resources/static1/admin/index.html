@@ -13,18 +13,14 @@
 <div id="app">
   <table>
     <tr>
-      <th>id</th>
-      <th>用户名</th>
-      <th>密码</th>
-      <th>操作</th>
+      <th v-for="title in titles">{{title}}</th>
+      <th><a href="edit.html">添加</a></th>
     </tr>
-    <tr v-for="object in list.data">
-      <td>{{object.id}}</td>
-      <td>{{object.username}}</td>
-      <td>{{object.password}}</td>
-      <td>
-        <a :href="'./edit.html?id='+object.id">修改</a>
-      </td>
+    <tr v-for="(list) in list.data">
+      <td v-for="(value,key) in list">{{value}}</td>
+      <td><a :href="'edit.html?id='+list.id">
+        <button>修改</button>
+      </a></td>
     </tr>
     <tr>
       <td>
@@ -36,14 +32,27 @@
   第<label><input v-model="page.showPage"></label>页,共{{page.totalPage}}页 ,
   {{page.firstRow}}-{{page.lastRow}}/{{page.totalRow}}条
   <button @Click="page.currPage++" class="btn btn-primary">下一页</button>
+  <label>每页显示<input v-model="page.pageSize"></label>条数据
 </div>
 <script>
+  let tableUrl = "/admin/query1";
   let app = new Vue({
     el: '#app',
-    data: {list,page,},
+    data: {page, list, titles: loginTitle},
     methods: {getPage,},
     created() {
-      this.getPage('/admin/query?pageSize=' + this.page.pageSize + '&pageNumber=' + this.page.currPage);
+      this.getPage(tableUrl + '?pageNumber=' + this.page.currPage);
+    }
+  });
+  app.$watch('page.showPage', {
+    handler() {
+      this.fresh();
+    },
+  });
+  app.$watch('page.pageSize', {
+    handler() {
+      axios.get('/visit/set?pageSize=' + this.page.pageSize);
+      this.fresh();
     }
   });
 </script>

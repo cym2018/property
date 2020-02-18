@@ -33,4 +33,5 @@ public class Application {
         objectMapper.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         return objectMapper;
     }
+    // todo:将table2 文字备注字段'面积'删除
 }

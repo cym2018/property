@@ -19,6 +19,7 @@
   <button @click="Submit('/admin/save'+urlEncoding2(selectForm))">提交</button>
 </div>
 <script>
+  let tableUrl='/admin/query1';
   let app = new Vue({
     el: '#app',
     data: {title, selectForm,},
@@ -30,7 +31,7 @@
         this.selectForm.id = '';
       } else {
         this.title = '修改';
-        this.getData('/admin/query'+urlEncoding2(selectForm));
+        this.getData(tableUrl+urlEncoding2(selectForm));
       }
     }
 

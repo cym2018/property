@@ -81,15 +81,15 @@
           case '2':
             // var table1Url = 'http://localhost:1030/visit/table1/query?pageSize=30&pageNumber=0';// + this.page.currPage;// + urlEncoding(this.selectForm);
             this.getPage('/visit/table1/query', 30, this.currPage, this.selectForm);
-            // todo:获得表1数据
+            // 获得表1数据
             break;
           case '3':
             // var table2Url = 'http://localhost:1030/visit/table2/query?pageSize=30&pageNumber=0';
             this.getPage('/visit/table2/query', 30, 0, this.selectForm);
-            //todo:获得表2数据
+            // 获得表2数据
             break;
           case '4':
-            // todo:获得用户表数据
+            // 获得用户表数据
             this.getPage('/admin/query', 30, 0, this.selectForm);
             break;
           default:
@@ -199,6 +199,7 @@
   }
 </script>
 <style>
+  /*noinspection ALL*/
   .ivu-table-column-mgRONm {
     padding-top: 0;
     padding-bottom: 0;
