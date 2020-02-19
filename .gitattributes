@@ -1,2 +1,3 @@
 /src/main/resources/static1/js/axios.js -linguist-detectable
 /src/main/resources/static1/js/vue.js -linguist-detectable
+/index/*.js -linguist-detectable
