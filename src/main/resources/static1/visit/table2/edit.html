@@ -47,6 +47,7 @@
     <h4>备注</h4>
     <label><span>数值备注:</span><input v-model="selectForm.numberNote"/></label><br>
     <label><span>文字备注:</span><textarea v-model="selectForm.textNote"></textarea></label>
+    <label><span>样式:</span><input v-model="selectForm.style"></label>
   </div>
   <div class="floatClear"></div>
   <button @click="Submit('/admin/table2/save'+urlEncoding2(selectForm))">保存</button>

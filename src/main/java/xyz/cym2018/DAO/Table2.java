@@ -49,7 +49,7 @@ public class Table2 {
     private Double numberNote;
     // 文字备注
     private String textNote;
-
+    private String style;
     @Override
     public String toString() {
         return "Table2{" +
@@ -258,5 +258,13 @@ public class Table2 {
         if (table2.getRefundDate() != null) refundDate = String.valueOf((Integer.parseInt(refundDate) + 1));
         if (table2.getRefundName() != null) refundName = String.valueOf((Integer.parseInt(refundName) + 1));
 
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 }

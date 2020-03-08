@@ -15,9 +15,6 @@ import java.sql.Date;
 @Entity
 //商基鑫城
 public class Table1 {
-    public Table1() {
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -34,12 +31,27 @@ public class Table1 {
     // 押金抵费
     private Double depositToCost;
     // 交费至
-//    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date paidForTime;
     // 退款金额
     private Double refundNumber;
     // 减免
     private Double breaks;
+    // 5.1号缴费
+    private Double paidAt51;
+    // 押金
+    private String depsit;
+    private Double property1;
+    private Double property2;
+    private Double property3;
+    // 数字备注
+    private Double numberNote;
+    // 文字备注
+    private String textNote;
+    // 样式
+    private String style;
+
+    public Table1() {
+    }
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     public Date getPaidForTime() {
@@ -49,19 +61,6 @@ public class Table1 {
     public void setPaidForTime(Date paidForTime) {
         this.paidForTime = paidForTime;
     }
-
-    // 5.1号缴费
-    private Double paidAt51;
-    // 押金
-    private String depsit;
-    private Double property1;
-    private Double property2;
-    private Double property3;
-
-    // 数字备注
-    private Double numberNote;
-    // 文字备注
-    private String textNote;
 
     public Double getProperty1() {
         return property1;
@@ -91,84 +90,82 @@ public class Table1 {
         return id;
     }
 
-    public Double getArea() {
-        return area;
-    }
-
-    public Double getDepositToCost() {
-        return depositToCost;
-    }
-
-
-    public String getName() {
-        return name;
-    }
-
-
-    public Double getRefundNumber() {
-        return refundNumber;
-    }
-
-
-    public Double getBreaks() {
-        return breaks;
-    }
-
-
-    public Double getPaidAt51() {
-        return paidAt51;
-    }
-
-
-    public String getDepsit() {
-        return depsit;
-    }
-
-
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Double getArea() {
+        return area;
     }
 
     public void setArea(Double area) {
         this.area = area;
     }
 
-    public void setBreaks(Double breaks) {
-        this.breaks = breaks;
+    public Double getDepositToCost() {
+        return depositToCost;
     }
 
     public void setDepositToCost(Double depositToCost) {
         this.depositToCost = depositToCost;
     }
 
+    public String getName() {
+        return name;
+    }
 
     public void setName(String name) {
         if (!"".equals(name))
             this.name = name;
     }
 
+    public Double getRefundNumber() {
+        return refundNumber;
+    }
 
     public void setRefundNumber(Double refundNumber) {
         this.refundNumber = refundNumber;
     }
 
+    public Double getBreaks() {
+        return breaks;
+    }
 
-    public void setDepsit(String depsit) {
-        if (!"".equals(depsit))
-            this.depsit = depsit;
+    public void setBreaks(Double breaks) {
+        this.breaks = breaks;
+    }
+
+    public Double getPaidAt51() {
+        return paidAt51;
     }
 
     public void setPaidAt51(Double paidAt51) {
         this.paidAt51 = paidAt51;
     }
 
+    public String getDepsit() {
+        return depsit;
+    }
+
+    public void setDepsit(String depsit) {
+        if (!"".equals(depsit))
+            this.depsit = depsit;
+    }
 
     public Integer getBuildingNumber() {
         return buildingNumber;
     }
 
+    public void setBuildingNumber(Integer buildingNumber) {
+        this.buildingNumber = buildingNumber;
+    }
+
     public Integer getRoomNumber() {
         return roomNumber;
+    }
+
+    public void setRoomNumber(Integer roomNumber) {
+        this.roomNumber = roomNumber;
     }
 
     public Integer getUnitNumber() {
@@ -179,24 +176,16 @@ public class Table1 {
         this.unitNumber = unitNumber;
     }
 
-    public void setRoomNumber(Integer roomNumber) {
-        this.roomNumber = roomNumber;
-    }
-
-    public void setBuildingNumber(Integer buildingNumber) {
-        this.buildingNumber = buildingNumber;
-    }
-
     public Double getProperty2() {
         return property2;
     }
 
-    public Double getProperty3() {
-        return property3;
-    }
-
     public void setProperty2(Double property2) {
         this.property2 = property2;
+    }
+
+    public Double getProperty3() {
+        return property3;
     }
 
     public void setProperty3(Double property3) {
@@ -276,5 +265,13 @@ public class Table1 {
         if (table1.getNumberNote() != null) numberNote++;
         if (table1.getTextNote() != null) textNote = String.valueOf((Integer.parseInt(textNote) + 1));
 
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 }

@@ -40,3 +40,32 @@ public static void main(String[] args){
 }
 }
 ```
+
+## 代码统计:排除部分文件
+```text
+## 无配置
+JavaScript	81.9%
+Java		10.1%
+HTML		5.8%
+Vue			1.8%
+CSS			0.4%
+## vue.js -linguist-detectable
+Java		52.6%
+HTML		30.5%
+Vue			9.5%
+JavaScript	5.6%
+CSS			1.8%
+## *.js -linguist-detectable
+Java 		55.8%
+HTML		32.3%
+Vue			10%
+CSS			1.9%
+vue.js -linguist-detectable
+axios.js -linguist-detectable
+app.*.js -linguist-detectable
+```
+
+## 数据库备份命令
+```text
+property --result-file="/root/backup/{data_source}-{timestamp}-dump.sql"
+```

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>列表</title>
@@ -37,8 +37,8 @@
     <tr>
       <th v-for="title in titles">{{title}}</th>
     </tr>
-    <tr v-for="(list) in list.data">
-      <td v-for="(value,key) in list" v-if="key!=='id'">{{value}}</td>
+    <tr v-for="(list) in list.data" v-bind:class="list.style">
+      <td v-for="(value,key) in list" v-if="key!=='id'&&key!=='style'">{{value}}</td>
       <td><a :href="'edit.html?id='+list.id">
         <button>修改</button>
       </a></td>

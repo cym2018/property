@@ -37,7 +37,7 @@ public class Table3 {
     private Double refundNumber;
     // 押金状态
     private String depositState;
-
+    private String style;
     public Integer getId() {
         return id;
     }
@@ -245,5 +245,13 @@ public class Table3 {
         if (table3.getNumberNote() != null) numberNote++;
         if (table3.getTextNote() != null) textNote = String.valueOf((Integer.parseInt(textNote) + 1));
 
+    }
+
+    public String getStyle() {
+        return style;
+    }
+
+    public void setStyle(String style) {
+        this.style = style;
     }
 }
